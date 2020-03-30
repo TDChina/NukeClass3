@@ -1,7 +1,4 @@
 #!/usr/bin/env python
 #_*_coding:utf-8_*_
 
-
-
-print "my name is Cai Ji"
-
+print "my name is cai ji"
