@@ -29,16 +29,19 @@ def Render_Write(nk_file):
         return
 
     print
-    print "The frame range of this project is: " + str(int(nuke.root()["first_frame"].value())) + " - " + str(int(nuke.root()["last_frame"].value()))
-    print "Input rendering frame range, start-end"
+    print "The frame range of this project is: " + str(int(nuke.root()["first_frame"].value())) + "-" + str(int(nuke.root()["last_frame"].value()))
+    print "Input rendering frame range, start-end, Separate multiple frame ranges with spaces"
     print
+
     in_frame_range = raw_input()
+    frame_list = in_frame_range.split()
+
+    for frame_range in frame_list:
 
 
+        cmd = "C:\\Program Files\\Nuke11.2v3\\Nuke11.2.exe --nukex -i -X " + in_write_name + " -F " + frame_range + " " + nk_file
 
-    cmd = "C:\\Program Files\\Nuke11.2v3\\Nuke11.2.exe --nukex -i -X " + in_write_name + " -F " + in_frame_range + " " + nk_file
-
-    subprocess.call(cmd)
+        subprocess.call(cmd)
 
 
 Render_Write("C:\\Users\\Alienware\\Desktop\\aaa_V001.nk")
