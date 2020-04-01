@@ -1,3 +1,0 @@
-import nuke
-
-print nuke
