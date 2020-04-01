@@ -29,6 +29,8 @@ def Render_Write(nk_file):
         print "Without this write node"
         return
 
+
+
     print
     print "The frame range of this project is: " + str(int(nuke.root()["first_frame"].value())) + "-" + str(int(nuke.root()["last_frame"].value()))
     print "Input rendering frame range, start-end, Separate multiple frame ranges with spaces"
