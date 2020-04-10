@@ -11,7 +11,7 @@ def new_read(path):
         nuke.message("This is not a path")
         return
 
-    file_list = nuke.getFileNameList(path)
+    file_list = nuke.getFileNameList(path,False,True,False)
 
     if not file_list:
         nuke.message("No file at this path")
@@ -28,7 +28,7 @@ def new_read(path):
 
         else:
             sequence = i.split(" ")
-            if os.path.splitext(sequence)[1].lower() in suffix_list:
+            if os.path.splitext(sequence[0])[1].lower() in suffix_list:
                 new_sequence_rad(os.path.join(path,sequence[0]) , sequence[1])
 
 
