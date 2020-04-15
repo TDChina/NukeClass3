@@ -10,7 +10,7 @@ import re
 ###### You can set nuke's path as an environment variable
 def get_nuke_path_en():
     '''get nuke environ path'''
-    nuke_path_en = os.environ.get('NUKE_PATH',None)
+    nuke_path_en = os.environ.get('NUKE_PATH_a',None)
 
     return nuke_path_en
 

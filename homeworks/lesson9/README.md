@@ -5,3 +5,7 @@
 ![](https://github.com/TDChina/NukeClass3/blob/master/homeworks/lesson9/lesson9.png)
 
 对于节点树本身并没有要求，你可以按照上图搭建节点树（不具备合成意义），也可以自己搭建节点树，但是作业代码中应当体现出对节点树进行插入、布局的操作。
+
+-------
+# 完成后运行效果
+![demo](./images/demo_1.gif)
