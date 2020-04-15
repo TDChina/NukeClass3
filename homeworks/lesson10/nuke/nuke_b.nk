@@ -1,0 +1,78 @@
+#! Y:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="1912" y="-8" w="1920" h="1027" maximized="1" screen="1">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1257" stretch="1"/>
+            <splitter orientation="2">
+                <split size="575"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="404"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/my_script/NukeClass3/homeworks/lesson10/nuke/nuke_b.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Dot {
+ inputs 0
+ name Dot1
+ xpos -362
+ ypos -99
+}
+set Nfc389c00 [stack 0]
+Glow2 {
+ name Glow1
+ xpos -485
+ ypos -8
+}
+push $Nfc389c00
+ColorCorrect {
+ name ColorCorrect1
+ xpos -313
+ ypos -8
+}
+Merge2 {
+ inputs 2
+ name Merge2
+ xpos -392
+ ypos 78
+}
+Viewer {
+ inputs 0
+ frame 1
+ frame_range 1-100
+ name Viewer1
+ xpos -45
+ ypos 148
+}

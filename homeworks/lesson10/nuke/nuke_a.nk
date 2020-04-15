@@ -1,0 +1,99 @@
+#! Y:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+#write_info Write1 file:"" format:"2048 1556 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"default" datatype:"unknown" transfer:"unknown" views:"main" colorManagement:"Nuke"
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1904" h="1011" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1241" stretch="1"/>
+            <splitter orientation="2">
+                <split size="565"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="398"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/my_script/NukeClass3/homeworks/lesson10/nuke/nuke_a.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Viewer {
+ inputs 0
+ frame 1
+ frame_range 1-100
+ name Viewer1
+ xpos -452
+ ypos 267
+}
+ColorBars {
+ inputs 0
+ name ColorBars1
+ xpos -370
+ ypos -82
+}
+Constant {
+ inputs 0
+ channels rgb
+ name Constant1
+ xpos -514
+ ypos -54
+}
+Text2 {
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ transforms {{0 2}
+   }
+ center {1024 778}
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+   }
+ name Text1
+ xpos -514
+ ypos 22
+}
+Transform {
+ center {1024 778}
+ name Transform1
+ xpos -514
+ ypos 60
+}
+Merge2 {
+ inputs 2
+ name Merge1
+ xpos -370
+ ypos 60
+}
+Write {
+ name Write1
+ xpos -370
+ ypos 115
+}

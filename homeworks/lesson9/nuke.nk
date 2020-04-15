@@ -1,0 +1,194 @@
+#! Y:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="645" y="82" w="874" h="794" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="615" stretch="1"/>
+            <splitter orientation="2">
+                <split size="438"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="308"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="211"/>
+            <dock id="" activePageId="uk.co.thefoundry.scripteditor.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                <page id="uk.co.thefoundry.scripteditor.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/my_script/NukeClass3/homeworks/lesson9/nuke.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+ColorBars {
+ inputs 0
+ name ColorBars1
+ xpos -49
+ ypos -156
+}
+Constant {
+ inputs 0
+ channels rgb
+ name Constant1
+ xpos -193
+ ypos -128
+}
+Text2 {
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ transforms {{0 2}
+   }
+ center {1024 778}
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+   }
+ name Text1
+ xpos -193
+ ypos -52
+}
+Transform {
+ center {1024 778}
+ name Transform1
+ xpos -193
+ ypos -14
+}
+Merge2 {
+ inputs 2
+ name Merge1
+ xpos -49
+ ypos -14
+}
+Write {
+ in_colorspace linear
+ out_colorspace linear
+ name Write1
+ xpos -49
+ ypos 41
+}
+Dot {
+ inputs 0
+ name Dot2
+ xpos 1353
+ ypos -79
+}
+set N8967d800 [stack 0]
+Glow2 {
+ name Glow2
+ xpos 1226
+ ypos -20
+}
+push $N8967d800
+ColorCorrect {
+ name ColorCorrect2
+ xpos 1406
+ ypos -20
+}
+Merge2 {
+ inputs 2
+ name Merge3
+ xpos 1324
+ ypos 67
+}
+ColorBars {
+ inputs 0
+ name ColorBars2
+ xpos 1094
+ ypos -110
+}
+Constant {
+ inputs 0
+ channels rgb
+ name Constant2
+ xpos 966
+ ypos -104
+}
+Text2 {
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ transforms {{0 2}
+   }
+ center {1024 778}
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+   }
+ name Text2
+ xpos 966
+ ypos -25
+}
+Transform {
+ center {1024 778}
+ name Transform2
+ xpos 966
+ ypos 1
+}
+Merge2 {
+ inputs 2
+ name Merge4
+ xpos 1094
+ ypos 1
+}
+Write {
+ in_colorspace linear
+ out_colorspace linear
+ name Write2
+ xpos 1094
+ ypos 56
+}
+Viewer {
+ inputs 0
+ frame_range 1-100
+ name Viewer1
+ xpos -584
+ ypos 175
+}
+Dot {
+ inputs 0
+ name Dot1
+ xpos 248
+ ypos -139
+}
+set N95f76000 [stack 0]
+Glow2 {
+ name Glow1
+ xpos 125
+ ypos -48
+}
+push $N95f76000
+ColorCorrect {
+ name ColorCorrect1
+ xpos 297
+ ypos -48
+}
+Merge2 {
+ inputs 2
+ name Merge2
+ xpos 218
+ ypos 38
+}
