@@ -11,4 +11,4 @@
 
 -------
 # 完成后运行效果
-![demo](./images/demo_1.gif)
+![demo](https://i.loli.net/2020/04/18/x1OpV6PKBjEbrQF.gif)

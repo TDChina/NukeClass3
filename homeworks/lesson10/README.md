@@ -7,4 +7,4 @@
 
 -------
 # 完成后运行效果
-![demo](./images/test.gif)
+![demo](https://i.loli.net/2020/04/18/7nYberE1RSh5tJT.gif)
