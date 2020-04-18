@@ -1,0 +1,36 @@
+nuke_toolPath: D:\my_script\NukeClass3\homeworks\lesson11\nuke_toolset
+
+SoftWare:
+  - nukeversion: 11.3
+    path: "Y:/Program Files/Nuke11.3v5/Nuke11.3.exe"
+
+  - nukeversion: 10.0
+    path: "Y:/Program Files/Nuke10.0v1/Nuke10.0.exe"
+
+plugins:
+  - name: ColorCarpet
+    value: plugins\ColorCarpet
+    version: True
+
+  - name: VRayDenoiser
+    value: plugins\VRayDenoiser
+    version: False
+
+  - name: GR_Noise
+    value: plugins
+    version: False
+
+gizmos:
+  - name: Despill
+    value: gizmos
+
+  - name: A_ChannelManager
+    value: gizmos\A_ChannelManager
+
+python:
+  - name: python
+    value: python
+
+ofx:
+  - name: ofx
+    value: ofx

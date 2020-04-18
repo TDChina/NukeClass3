@@ -1,0 +1,552 @@
+#! C:/Program Files/Nuke10.0v5/nuke-10.0.5.dll -nx
+version 10.0 v5
+Gizmo {
+ inputs 2
+ addUserKnob {20 channelmanager l ChannelManager}
+ addUserKnob {6 showlayer l Show_Layers t "Show all layers embedded in the connected input" +STARTLINE}
+ addUserKnob {6 rgb_unpremult l "Unpremult RGB" -STARTLINE}
+ addUserKnob {68 premultt l (Un)premult M {None "Unpremult all layers" "Unpremult selected layer(s)" "" "" "" ""}}
+ premultt "Unpremult selected layer(s)"
+ addUserKnob {41 in l ChannelInput T Shuffle20.in}
+ addUserKnob {52 premult_sel1 T "nuke.toNode('Shuffle1').knob('knobChanged').setValue('''\n\na = nuke.toNode('Shuffle1').knob('in').value()\ng = nuke.toNode('Unpremult2')\ng.knob('channels').setValue(a)\n\n''')" +STARTLINE}
+ addUserKnob {52 premult_sel2 T "nuke.toNode('Shuffle4').knob('knobChanged').setValue('''\n\n\nb = nuke.toNode('Shuffle4').knob('in').value()\nh = nuke.toNode('Unpremult3')\nh.knob('channels').setValue(b)\n\n''')" +STARTLINE}
+ addUserKnob {52 premult_sel3 T "nuke.toNode('Shuffle7').knob('knobChanged').setValue('''\n\n\nc = nuke.toNode('Shuffle7').knob('in').value()\ni = nuke.toNode('Unpremult4')\ni.knob('channels').setValue(c)\n\n\n''')" +STARTLINE}
+ addUserKnob {52 premult_sel4 T "nuke.toNode('Shuffle10').knob('knobChanged').setValue('''\n\n\nd = nuke.toNode('Shuffle10').knob('in').value()\nl = nuke.toNode('Unpremult5')\nl.knob('channels').setValue(d)\n\n''')\n" +STARTLINE}
+ addUserKnob {52 premult_sel5 T "nuke.toNode('Shuffle13').knob('knobChanged').setValue('''\n\ne = nuke.toNode('Shuffle13').knob('in').value()\nm = nuke.toNode('Unpremult6')\nm.knob('channels').setValue(e)\n\n''')" +STARTLINE}
+ addUserKnob {52 premult_sel6 T "nuke.toNode('Shuffle16').knob('knobChanged').setValue('''\n\nf = nuke.toNode('Shuffle16').knob('in').value()\nn = nuke.toNode('Unpremult7')\nn.knob('channels').setValue(f)\n\n''')" +STARTLINE}
+ addUserKnob {68 mask l "Use Channels as" M {None Mask Stencil "" "" "" "" "" ""}}
+ mask Mask
+ addUserKnob {41 also_merge l "also merge" -STARTLINE T Merge5.also_merge}
+ addUserKnob {26 ""}
+ addUserKnob {22 ResetChannel t "Set all channels inputs to None" T "nuke.toNode('Shuffle1').knob('in').setValue('none')\nnuke.toNode('Shuffle1').knob('alpha').setValue('off')\nnuke.toNode('Shuffle4').knob('in').setValue('none')\nnuke.toNode('Shuffle4').knob('alpha').setValue('off')\nnuke.toNode('Shuffle7').knob('in').setValue('none')\nnuke.toNode('Shuffle7').knob('alpha').setValue('off')\nnuke.toNode('Shuffle10').knob('in').setValue('none')\nnuke.toNode('Shuffle10').knob('alpha').setValue('off')\nnuke.toNode('Shuffle13').knob('in').setValue('none')\nnuke.toNode('Shuffle13').knob('alpha').setValue('off')\nnuke.toNode('Shuffle16').knob('in').setValue('none')\nnuke.toNode('Shuffle16').knob('alpha').setValue('off')\n\n\nnuke.toNode('Shuffle2').knob('alpha').setValue('off')\nnuke.toNode('Shuffle3').knob('alpha').setValue('off')\nnuke.toNode('Shuffle5').knob('alpha').setValue('off')\nnuke.toNode('Shuffle6').knob('alpha').setValue('off')\nnuke.toNode('Shuffle8').knob('alpha').setValue('off')\nnuke.toNode('Shuffle9').knob('alpha').setValue('off')\nnuke.toNode('Shuffle11').knob('alpha').setValue('off')\nnuke.toNode('Shuffle12').knob('alpha').setValue('off')\nnuke.toNode('Shuffle14').knob('alpha').setValue('off')\nnuke.toNode('Shuffle15').knob('alpha').setValue('off')\nnuke.toNode('Shuffle17').knob('alpha').setValue('off')\nnuke.toNode('Shuffle18').knob('alpha').setValue('off')" +STARTLINE}
+ addUserKnob {41 channel_01 l Channel T Shuffle1.in}
+ addUserKnob {41 id01_1 l ID1_alpha T Shuffle1.alpha}
+ addUserKnob {41 id01_2 l ID1_alpha T Shuffle2.alpha}
+ addUserKnob {41 id01_3 l ID1_alpha T Shuffle3.alpha}
+ addUserKnob {26 ""}
+ addUserKnob {41 channel_02 l Channel T Shuffle4.in}
+ addUserKnob {41 id02_1 l ID2_alpha T Shuffle4.alpha}
+ addUserKnob {41 id02_2 l ID2_alpha T Shuffle5.alpha}
+ addUserKnob {41 id02_3 l ID2_alpha T Shuffle6.alpha}
+ addUserKnob {26 ""}
+ addUserKnob {41 channel_03 l Channel T Shuffle7.in}
+ addUserKnob {41 id03_1 l ID3_alpha T Shuffle7.alpha}
+ addUserKnob {41 id03_2 l ID3_alpha T Shuffle8.alpha}
+ addUserKnob {41 id03_3 l ID3_alpha T Shuffle9.alpha}
+ addUserKnob {26 ""}
+ addUserKnob {41 channel_04 l Channel T Shuffle10.in}
+ addUserKnob {41 id04_1 l ID4_alpha T Shuffle10.alpha}
+ addUserKnob {41 id04_2 l ID4_alpha T Shuffle11.alpha}
+ addUserKnob {41 id04_3 l ID4_alpha T Shuffle12.alpha}
+ addUserKnob {26 ""}
+ addUserKnob {41 channel_05 l Channel T Shuffle13.in}
+ addUserKnob {41 id05_1 l ID5_alpha T Shuffle13.alpha}
+ addUserKnob {41 id05_2 l ID5_alpha T Shuffle14.alpha}
+ addUserKnob {41 id05_3 l ID5_alpha T Shuffle15.alpha}
+ addUserKnob {26 ""}
+ addUserKnob {41 channel_06 l Channel T Shuffle16.in}
+ addUserKnob {41 id06_1 l ID6_alpha T Shuffle16.alpha}
+ addUserKnob {41 id06_2 l ID6_alpha T Shuffle17.alpha}
+ addUserKnob {41 id06_3 l ID6_alpha T Shuffle18.alpha}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l mask}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T Merge2.maskChannelInput}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Merge2.invert_mask}
+ addUserKnob {41 inject -STARTLINE T Merge2.inject}
+ addUserKnob {41 fringe -STARTLINE T Merge2.fringe}
+ addUserKnob {41 mix T Merge2.mix}
+}
+ Input {
+  inputs 0
+  name mask
+  label "\[value number]"
+  xpos 1405
+  ypos 684
+  number 1
+ }
+ Constant {
+  inputs 0
+  color 1
+  name Constant1
+  xpos 1601
+  ypos 751
+ }
+ Switch {
+  inputs 2
+  which {{"\[exists parent.input1]" x1776 1}}
+  name Switch1
+  xpos 1405
+  ypos 774
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 2347
+  ypos -2416
+ }
+ Unpremult {
+  name Unpremult8
+  xpos 2347
+  ypos -2339
+  disable {{1-rgb_unpremult}}
+ }
+ Dot {
+  name Dot18
+  xpos 2381
+  ypos -2198
+ }
+set N6b63000 [stack 0]
+ Dot {
+  name Dot17
+  xpos 2542
+  ypos -2198
+ }
+ Unpremult {
+  channels none
+  name Unpremult2
+  xpos 2508
+  ypos -2136
+ }
+ Unpremult {
+  channels none
+  name Unpremult3
+  xpos 2508
+  ypos -2098
+ }
+ Unpremult {
+  channels none
+  name Unpremult4
+  xpos 2508
+  ypos -2060
+ }
+ Unpremult {
+  channels none
+  name Unpremult5
+  xpos 2508
+  ypos -2022
+ }
+ Unpremult {
+  channels none
+  name Unpremult6
+  xpos 2508
+  ypos -1984
+ }
+ Unpremult {
+  channels none
+  name Unpremult7
+  xpos 2508
+  ypos -1946
+ }
+ Dot {
+  name Dot19
+  xpos 2542
+  ypos -1803
+ }
+push $N6b63000
+ Dot {
+  name Dot16
+  xpos 2209
+  ypos -2198
+ }
+ Unpremult {
+  channels all
+  name Unpremult1
+  xpos 2175
+  ypos -1813
+ }
+push $N6b63000
+ Switch {
+  inputs 3
+  which {{parent.premultt x1 0.068}}
+  name Switch4
+  xpos 2352
+  ypos -1807
+ }
+ Dot {
+  name Dot15
+  xpos 2386
+  ypos -1656
+ }
+set N6b90400 [stack 0]
+ Dot {
+  name Dot2
+  xpos 2386
+  ypos -1507
+ }
+ Dot {
+  name Dot5
+  xpos 725
+  ypos -1507
+ }
+set N6bb9c00 [stack 0]
+ Dot {
+  name Dot3
+  xpos -1032
+  ypos -1507
+ }
+ LayerContactSheet {
+  width {{input.width}}
+  height {{input.height}}
+  center true
+  showLayerNames {{"1-Merge3.disable && 1-parent.disable" x1 1}}
+  name LayerContactSheet1
+  xpos -1066
+  ypos 415
+ }
+push $N6bb9c00
+ Dot {
+  name Dot1
+  xpos 725
+  ypos -1374
+ }
+set N6bb9000 [stack 0]
+ Shuffle {
+  in {{{Shuffle1.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle2
+  xpos -700
+  ypos -957
+ }
+push 0
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle17.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle18
+  xpos 2153
+  ypos -938
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle16.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle17
+  xpos 2041
+  ypos -941
+ }
+push $N6bb9000
+ Shuffle {
+  in none
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle16
+  knobChanged "\n\nf = nuke.toNode('Shuffle16').knob('in').value()\nn = nuke.toNode('Unpremult7')\nn.knob('channels').setValue(f)\n\n"
+  xpos 1931
+  ypos -941
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle11.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle12
+  xpos 1092
+  ypos -940
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle14.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle15
+  xpos 1594
+  ypos -951
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle13.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle14
+  xpos 1491
+  ypos -950
+ }
+push $N6bb9000
+ Shuffle {
+  in none
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle7
+  knobChanged "\n\n\nc = nuke.toNode('Shuffle7').knob('in').value()\ni = nuke.toNode('Unpremult4')\ni.knob('channels').setValue(c)\n\n\n"
+  xpos 316
+  ypos -950
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle7.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle8
+  xpos 426
+  ypos -950
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle8.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle9
+  xpos 536
+  ypos -950
+ }
+push $N6bb9000
+ Shuffle {
+  in none
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle10
+  knobChanged "\n\n\nd = nuke.toNode('Shuffle10').knob('in').value()\nl = nuke.toNode('Unpremult5')\nl.knob('channels').setValue(d)\n\n"
+  xpos 873
+  ypos -938
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle10.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle11
+  xpos 984
+  ypos -938
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle5.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle6
+  xpos -56
+  ypos -952
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle4.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle5
+  xpos -171
+  ypos -951
+ }
+push $N6bb9000
+ Shuffle {
+  in none
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle4
+  knobChanged "\n\n\nb = nuke.toNode('Shuffle4').knob('in').value()\nh = nuke.toNode('Unpremult3')\nh.knob('channels').setValue(b)\n\n"
+  xpos -279
+  ypos -951
+ }
+push $N6bb9000
+ Shuffle {
+  in {{{Shuffle2.in}}}
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle3
+  xpos -523
+  ypos -955
+ }
+push 0
+push $N6bb9000
+ Shuffle {
+  in none
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle13
+  knobChanged "\n\ne = nuke.toNode('Shuffle13').knob('in').value()\nm = nuke.toNode('Unpremult6')\nm.knob('channels').setValue(e)\n\n"
+  xpos 1389
+  ypos -949
+ }
+push $N6bb9000
+ Shuffle {
+  in none
+  red black
+  green black
+  blue black
+  alpha off
+  name Shuffle1
+  knobChanged "\n\na = nuke.toNode('Shuffle1').knob('in').value()\ng = nuke.toNode('Unpremult2')\ng.knob('channels').setValue(a)\n\n"
+  selected true
+  xpos -850
+  ypos -956
+ }
+ Merge2 {
+  inputs 19+1
+  operation disjoint-over
+  maskChannelMask none
+  mix {1}
+  name Merge2
+  xpos 716
+  ypos -457
+ }
+set N6c26400 [stack 0]
+ Dot {
+  name Dot8
+  xpos 1495
+  ypos -451
+ }
+set N6c26000 [stack 0]
+ Dot {
+  name Dot11
+  xpos 1495
+  ypos -119
+ }
+push $N6b90400
+ Dot {
+  name Dot4
+  xpos 2536
+  ypos -1656
+ }
+ Shuffle {
+  name Shuffle20
+  xpos 2504
+  ypos -855
+ }
+ Dot {
+  name Dot7
+  xpos 2538
+  ypos -518
+ }
+set N6c61000 [stack 0]
+ Dot {
+  name Dot12
+  xpos 2714
+  ypos -518
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  bbox B
+  also_merge {{{parent.Merge5.also_merge}}}
+  name Merge4
+  xpos 2680
+  ypos -123
+ }
+ Dot {
+  name Dot9
+  xpos 2714
+  ypos 150
+ }
+ Constant {
+  inputs 0
+  channels alpha
+  color 1
+  name Constant2
+  xpos 1938
+  ypos -729
+ }
+push $N6c26000
+ Switch {
+  inputs 2
+  which {{"Shuffle1.alpha || Shuffle2.alpha || Shuffle3.alpha || Shuffle4.alpha || Shuffle5.alpha || Shuffle6.alpha || Shuffle7.alpha || Shuffle8.alpha || Shuffle9.alpha || Shuffle10.alpha || Shuffle11.alpha || Shuffle12.alpha || Shuffle13.alpha || Shuffle14.alpha || Shuffle15.alpha || Shuffle16.alpha || Shuffle17.alpha || Shuffle18.alpha !=0 ? 0 : 1"}}
+  name Switch3
+  xpos 1938
+  ypos -457
+ }
+ Dot {
+  name Dot6
+  xpos 2127
+  ypos -453
+ }
+ Dot {
+  name Dot10
+  xpos 2127
+  ypos -3
+ }
+push $N6c61000
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge5
+  xpos 2504
+  ypos -7
+ }
+ Dot {
+  name Dot13
+  xpos 2538
+  ypos 88
+ }
+ Dot {
+  name Dot14
+  xpos 894
+  ypos 88
+ }
+push $N6c26400
+ Switch {
+  inputs 3
+  which {{parent.mask}}
+  name Switch2
+  xpos 716
+  ypos 146
+ }
+ Merge2 {
+  inputs 2
+  operation copy
+  name Merge3
+  xpos 716
+  ypos 415
+  disable {{1-parent.showlayer x1 1}}
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge1
+  xpos 716
+  ypos 774
+ }
+set N6c8c400 [stack 0]
+ Output {
+  name Output1
+  xpos 716
+  ypos 886
+ }
+push $N6c8c400
+ Viewer {
+  frame_range 1-100
+  fps 25
+  colour_sample_bbox {-0.2927083373 -0.1572916657 -0.2916666567 -0.15625}
+  samplepoints {{-0.3645833433 -0.1416666657}
+    }
+  name Viewer1
+  xpos 1048
+  ypos 592
+ }
+end_group

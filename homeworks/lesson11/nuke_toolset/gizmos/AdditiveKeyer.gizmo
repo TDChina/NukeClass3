@@ -1,0 +1,258 @@
+#! C:/Program Files/Nuke8.0v6/nuke-8.0.v6.dll -nx
+version 8.0 v6
+Gizmo {
+ inputs 4
+ help http://www.vfxwiki.org/tiki-index.php?page=additive+keyer
+ tile_color 0x566d6dff
+ addUserKnob {20 Options}
+ addUserKnob {41 Dark_value T Grade_dark_value.multiply}
+ addUserKnob {41 Light_value T Grade_light_value.multiply}
+ addUserKnob {41 Saturation l saturation T Saturation1.saturation}
+ addUserKnob {41 Dark_tint T dark_tint.multiply}
+ addUserKnob {41 Light_tint T light_tint.multiply}
+ addUserKnob {41 Constraindarks l "Constrain darks" T Constrain_darks.mix}
+ addUserKnob {41 mix l "Constrain Lights" T Constrain_lights.mix}
+ addUserKnob {41 Mix_back_BG t "Mix back original bg, handy if effect is to strong and you need an overall mix back" T Dissolve1.which}
+ addUserKnob {6 Log_with_Linear_output +STARTLINE}
+}
+ Input {
+  inputs 0
+  name BG
+  xpos -775
+  ypos 418
+ }
+ Log2Lin {
+  operation lin2log
+  name Log2Lin1
+  xpos -775
+  ypos 474
+  disable {{"Log_with_Linear_output == 0? 1:0" i}}
+ }
+ Shuffle {
+  alpha black
+  name Shuffle5
+  xpos -775
+  ypos 522
+ }
+set N3a12c720 [stack 0]
+ Dot {
+  name Dot1
+  selected true
+  xpos -741
+  ypos 1451
+ }
+set N3a12ca90 [stack 0]
+ Input {
+  inputs 0
+  name Matte
+  xpos -903
+  ypos 420
+  number 3
+ }
+ Invert {
+  name Invert1
+  xpos -903
+  ypos 1358
+ }
+push $N3a12ca90
+ Input {
+  inputs 0
+  name FG
+  xpos -340
+  ypos 405
+  number 2
+ }
+ Log2Lin {
+  operation lin2log
+  name Log2Lin3
+  xpos -340
+  ypos 452
+  disable {{"Log_with_Linear_output == 0? 1:0" i}}
+ }
+ Shuffle {
+  alpha black
+  name Shuffle1
+  xpos -340
+  ypos 489
+ }
+set N3a12dbc0 [stack 0]
+ Input {
+  inputs 0
+  name Ref
+  xpos -231
+  ypos 404
+  number 1
+ }
+ Log2Lin {
+  operation lin2log
+  name Log2Lin4
+  xpos -231
+  ypos 445
+  disable {{"Log_with_Linear_output == 0? 1:0" i}}
+ }
+ Shuffle {
+  alpha black
+  name Shuffle2
+  xpos -231
+  ypos 491
+ }
+set N3a12e610 [stack 0]
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge2
+  xpos -166
+  ypos 805
+ }
+ Shuffle {
+  alpha black
+  name Shuffle3
+  xpos -166
+  ypos 851
+ }
+ Keyer {
+  operation "luminance key"
+  name Keyer1
+  xpos -166
+  ypos 886
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle4
+  xpos -166
+  ypos 939
+ }
+push $N3a12c720
+push $N3a12c720
+ Keyer {
+  operation "luminance key"
+  name Keyer2
+  xpos -625
+  ypos 838
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle6
+  xpos -625
+  ypos 895
+ }
+set N3a39a7e0 [stack 0]
+push $N3a12dbc0
+push $N3a12e610
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos -340
+  ypos 594
+ }
+ Saturation {
+  saturation 0.3
+  name Saturation1
+  xpos -340
+  ypos 649
+ }
+set N3a39aec0 [stack 0]
+ Clamp {
+  minimum -15
+  maximum 0
+  name clamp
+  xpos -468
+  ypos 814
+ }
+ Grade {
+  black_clamp false
+  name Grade_dark_value
+  xpos -468
+  ypos 871
+ }
+ Grade {
+  black_clamp false
+  name dark_tint
+  xpos -468
+  ypos 914
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  mix 0
+  name Constrain_darks
+  xpos -553
+  ypos 1028
+ }
+push $N3a39a7e0
+push $N3a39aec0
+ Clamp {
+  maximum 15
+  name clamp2
+  xpos -337
+  ypos 803
+ }
+ Grade {
+  name Grade_light_value
+  xpos -337
+  ypos 862
+ }
+ Grade {
+  name light_tint
+  xpos -337
+  ypos 919
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  mix 0
+  name Constrain_lights
+  xpos -389
+  ypos 1033
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge5
+  xpos -481
+  ypos 1119
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge6
+  xpos -618
+  ypos 1206
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -517
+  ypos 1284
+ }
+ Keymix {
+  inputs 3
+  name Keymix1
+  xpos -517
+  ypos 1358
+ }
+ Dissolve {
+  inputs 2
+  name Dissolve1
+  xpos -517
+  ypos 1442
+ }
+ Log2Lin {
+  name Log2Lin2
+  xpos -517
+  ypos 1509
+  disable {{"Log_with_Linear_output == 0? 1:0" i}}
+ }
+ Output {
+  name Output1
+  xpos -517
+  ypos 1561
+ }
+end_group
