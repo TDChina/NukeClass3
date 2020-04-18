@@ -11,11 +11,11 @@
 
 # 第一个作业
 -----
-![demo1](https://i.loli.net/2020/04/18/3Aatw2X4sOPKYfh.png
-)
+![demo1](https://i.loli.net/2020/04/18/hM3X2JRcZCxv6Ek.gif)  
 ----
 # 第二个作业：
-![demo1](https://i.loli.net/2020/04/18/hM3X2JRcZCxv6Ek.gif)  
+------
+![demo1](https://i.loli.net/2020/04/18/3Aatw2X4sOPKYfh.png)
 
 可以利用yaml来配置不同的nuke环境，可以按项目或者软件版本去配置  
 然后写一个有不同情况或者项目的启动器
