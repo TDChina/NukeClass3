@@ -1,0 +1,163 @@
+#! C:/Program Files/Nuke8.0v6/nuke-8.0.v6.dll -nx
+version 8.0 v6
+Gizmo {
+ inputs 2
+ addUserKnob {20 despill l "Despill / Unspill"}
+ addUserKnob {4 color l Screencolor M {Green Blue "" "" ""}}
+ addUserKnob {26 "" l "Choose defaults"}
+ addUserKnob {32 setdefaultg l "Despill defaults greenscreen" T "knob mult_r 0\nknob mult_g 1\nknob mult_b 0\nknob color 0" +STARTLINE}
+ addUserKnob {32 setdefault l "Despill defaults bluescreen" -STARTLINE T "knob mult_r 0\nknob mult_g 0\nknob mult_b 1\nknob color 1"}
+ addUserKnob {32 dfsdf l "Unspill defaults greenscreen" T "knob mult_r 0.3\nknob mult_g 0.7\nknob mult_b 0.3\nknob color 0" +STARTLINE}
+ addUserKnob {32 sdfsdf l "Unspill defaults bluescreen" -STARTLINE T "knob mult_r 0.3\nknob mult_g 0.3\nknob mult_b 0.7\nknob color 1"}
+ addUserKnob {26 "" l "Channel despill gain" t "Multiply to get the amount that is subtracted from green the Screencolor channel and accordingly added to the other channels."}
+ addUserKnob {41 mult_r l Red T GAIN_R.multiply}
+ addUserKnob {41 mult_g l Green T GAIN_G.multiply}
+ addUserKnob {41 mult_b l Blue T GAIN_B.multiply}
+}
+ Input {
+  inputs 0
+  name Plate
+  xpos -169
+  ypos -439
+ }
+set N3ff47710 [stack 0]
+ Shuffle {
+  green red
+  blue red
+  alpha black
+  name ShuffleRED
+  xpos -449
+  ypos -207
+ }
+ Input {
+  inputs 0
+  name Spillmatte
+  xpos -730
+  ypos -397
+  number 1
+ }
+set N3ff47df0 [stack 0]
+ Grade {
+  name GAIN_R
+  xpos -853
+  ypos -213
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name ADDED_RED
+  xpos -853
+  ypos 143
+ }
+push $N3ff47710
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name ShuffleBLUE
+  xpos -340
+  ypos -210
+ }
+set N3ff48840 [stack 0]
+push $N3ff47df0
+ Grade {
+  name GAIN_B
+  xpos -730
+  ypos -213
+ }
+set N3ff48bb0 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name ADDED_BLUE1
+  xpos -730
+  ypos 91
+ }
+push $N3ff48840
+push $N3ff48bb0
+ Merge2 {
+  inputs 2
+  operation plus
+  name ADDED_BLUE
+  xpos -492
+  ypos 92
+ }
+ Switch {
+  inputs 2
+  which {{parent.color}}
+  name Switch2
+  selected true
+  xpos -492
+  ypos 201
+ }
+push $N3ff47710
+ Shuffle {
+  red green
+  blue green
+  alpha black
+  name ShuffleGREEN
+  xpos -236
+  ypos -209
+ }
+set N400527a0 [stack 0]
+push $N3ff47df0
+ Grade {
+  name GAIN_G
+  xpos -611
+  ypos -214
+ }
+set N40052b10 [stack 0]
+ Merge2 {
+  inputs 2
+  operation plus
+  name SUBTRACTED_GREEN1
+  xpos -611
+  ypos -11
+ }
+push $N400527a0
+push $N40052b10
+ Merge2 {
+  inputs 2
+  operation minus
+  name SUBTRACTED_GREEN
+  xpos -236
+  ypos -75
+ }
+ Switch {
+  inputs 2
+  which {{parent.color i}}
+  name Switch1
+  xpos -236
+  ypos -11
+ }
+push $N3ff47710
+ Copy {
+  inputs 2
+  from0 rgba.green
+  to0 rgba.green
+  name Copy1
+  xpos 59
+  ypos -17
+ }
+ Copy {
+  inputs 2
+  from0 rgba.blue
+  to0 rgba.blue
+  name Copy2
+  xpos -382
+  ypos 293
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.red
+  name Copy3
+  xpos -626
+  ypos 434
+ }
+ Output {
+  name Output1
+  xpos -626
+  ypos 544
+ }
+end_group

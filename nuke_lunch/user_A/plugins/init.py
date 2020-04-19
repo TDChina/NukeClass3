@@ -1,1 +1,0 @@
-print 'plugins is load'
