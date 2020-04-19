@@ -1,0 +1,9 @@
+set cut_paste_input [stack 0]
+version 11.3 v5
+push $cut_paste_input
+Grade {
+ name Grade1
+ selected true
+ xpos 449
+ ypos -171
+}

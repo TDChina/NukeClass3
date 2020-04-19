@@ -7,3 +7,8 @@ command1、command2和command3，运行后
 的消息对话框。**
 
 你应当使用for循环来一次性添加这三个命令项，请测试命令的执行结果是否符合题目要求。
+
+# 演示效果
+------
+
+![demo](https://i.loli.net/2020/04/19/7eE3oybSh2F5Ip4.gif)
