@@ -26,7 +26,7 @@ def main(file_folder):
     
     # create write node
     write_node = nuke.createNode('Write')
-    write_node['file'].setValue(seq_name + '.mov')
+    write_node['file'].setValue(file_folder + '/' + seq_name + '.mov')
     write_node['meta_codec'].setValue('avc1')
     write_node['mov64_fps'].setValue(24)
     write_node.setXYpos(reformat_node.xpos(), reformat_node.ypos()+100)
