@@ -6,4 +6,4 @@
 
 # 演示
 
-![gif](./gif.gif)
+![image](./gif.gif)
