@@ -6,4 +6,4 @@
 
 # 演示
 
-![gif](https://github.com/TDChina/NukeClass3/blob/03005-CaiJi/homeworks/lesson15/gif.gif)
+![gif](https://github.com//TDChina//NukeClass3//blob//03005-CaiJi//homeworks//lesson15//gif.gif)
