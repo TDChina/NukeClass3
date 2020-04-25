@@ -26,6 +26,7 @@ def main(path):
 
         mov_name = re.match(".+?\.",file_name).group() + "mov"
         write = nuke.createNode("Write","file {%s}"%os.path.join(path,mov_name))
+        write.setInput(0,reformat)
         write["mov64_fps"].setValue(24.0)
         write["meta_codec"].setValue("avc1")
 
