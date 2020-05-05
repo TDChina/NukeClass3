@@ -1,1 +1,1 @@
-{"root": []}
+{"root": [{"type": "command", "name": "newtest", "script": "nuke.scriptReadFile('D:/my_script/NukeClass3/homeworks/lesson13/cases/lesson13/tool_storage/newtest.nk')"}]}

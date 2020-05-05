@@ -9,7 +9,6 @@ from dialog import (AddGizmoDialog, AddTemplateDialog, AddPythonDialog,
                     AddMenuDialog, RemoveItemDialog)
 
 TOOL_ROOT = os.path.dirname(os.path.abspath(__file__)) # get script run path
-print(TOOL_ROOT)
 RECORD_FILE = os.path.join(TOOL_ROOT, 'tool_storage/menu_record.json')
 
 
@@ -49,8 +48,10 @@ def add_template(menu_item):
         nuke.message('You should select one or more nodes.')
         return
     dialog = AddTemplateDialog()
+
     if dialog.exec_():
         name = dialog.name
+
         template_path = path_join(menu_item.path,
                                   '{}.nk'.format(name.replace(' ', '_')))
         makedirs(template_path)

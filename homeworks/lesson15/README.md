@@ -5,3 +5,7 @@
 
 要完成本作业，你需要了解Premult节点、Merge节点、Shuffle节点、switch节点、Constant节点的使用，
 请自行查询节点帮助。另外，你需要了解Alpha通道的基本概念。
+
+## 完成演示效果
+-------
+![deom](https://i.loli.net/2020/05/01/AMysiZ56HmrKzoN.gif)
