@@ -1,0 +1,91 @@
+#! C:/Program Files/Nuke11.3v3/nuke-11.3.3.dll -nx
+version 11.3 v3
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {1 one_text l One_text}
+ one_text "bbb text "
+ addUserKnob {7 font_size l Font_size}
+ font_size 1
+ addUserKnob {1 another_text l Another_text}
+ another_text bbb
+ addUserKnob {22 copy l " Copy" -STARTLINE T "content = nuke.thisNode()\['another_text'].value()\nnuke.thisNode().begin()\nt2 = nuke.toNode('Text2')\['message'].value()\nw = t2.split(' ')\nt2_list = list(set(w))\nfor i in t2_list:\n    if content not in t2_list:\n        nuke.toNode('Text2')\['message'].setValue(t2 + ' ' + content)\n    elif content == i:\n        nuke.message('the element is already in text2\\'s content！')\nnuke.thisNode().end()"}
+ addUserKnob {1 outside_node l Outside_node}
+ outside_node "outside node"
+ addUserKnob {22 get_value l Get_value -STARTLINE T "this_node = nuke.thisNode()\nwith nuke.Root():\n    node = nuke.selectedNode()\n    if node.Class() == 'Text2':\n        this_node\['outside_node'].setValue(node\['message'].value())\n    else:\n        nuke.message('please selected a text node')\n"}
+ addUserKnob {4 choise_node l Choise_node M {Text1 Text2}}
+ choise_node Text2
+ addUserKnob {22 copy_1 l Copy -STARTLINE T "this_node = nuke.thisNode()\nvalue = this_node\['outside_node'].value()\nnuke.toNode(this_node.name()).begin()\nchoise_list = list()\nfor i in nuke.allNodes('Text2'):\n    choise_list.append(i.name())\nthis_node\['choise_node'].setValues(choise_list)\nchoise_node = this_node\['choise_node'].value()\n\nif choise_node == 'Text1':\n    nuke.toNode('Text1')\['message'].setValue(nuke.toNode('Text1')\['message'].value() + ' ' + value)\nif choise_node == 'Text2':\n    nuke.toNode('Text2')\['message'].setValue(nuke.toNode('Text2')\['message'].value() + ' ' + value)\n\nnuke.toNode(this_node.name()).end()\n\n"}
+ addUserKnob {22 gizmo_to_group T nuke.thisNode().makeGroup() +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 300
+  ypos -142
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value parent.one_text]"
+  old_message {{98 98 98 32 116 101 120 116 32}
+    }
+  old_expression_markers {{0 8}
+    }
+  box {0 800 2045 1556}
+  xjustify center
+  transforms {{0 2}
+    }
+  cursor_position 22
+  global_font_scale {{parent.font_size}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 1556}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name Text1
+  xpos 300
+  ypos -102
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message " bbb outside "
+  old_message {{32 98 98 98 32 111 117 116 115 105 100 101 32}
+    }
+  box {5 -4 2050 795}
+  xjustify center
+  transforms {{0 2}
+    }
+  cursor_position 13
+  global_font_scale {{parent.font_size}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{165 784.999939}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name Text2
+  xpos 300
+  ypos -30
+ }
+set Nc8f86400 [stack 0]
+ Output {
+  name Output1
+  xpos 300
+  ypos 70
+ }
+push $Nc8f86400
+ Viewer {
+  frame_range 1-100
+  name Viewer1
+  xpos 635
+  ypos 228
+ }
+end_group
