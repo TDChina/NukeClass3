@@ -1,0 +1,71 @@
+#! Y:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="1912" y="-8" w="1920" h="1027" maximized="1" screen="1">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1076" stretch="1"/>
+            <splitter orientation="2">
+                <split size="575"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="404"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="796"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/my_script/NukeClass3/homeworks/lesson16/multiNodeEditor.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Viewer {
+ inputs 0
+ frame_range 1-100
+ name Viewer1
+ xpos -309
+ ypos 48
+}
+NoOp {
+ inputs 0
+ name MultiNodeEditor
+ selected true
+ xpos -191
+ ypos -113
+ addUserKnob {20 editor l Editor}
+ addUserKnob {4 class M {Merge2 Grade Shuffle}}
+ addUserKnob {22 refresh -STARTLINE T "classNode = \[]\nallNode = nuke.allNodes()\nfor i in allNode:\n    if not i.Class() in ('NoOp','Viewer'):\n        if not i.Class() in classNode:\n            classNode.append(i.Class())\neditor = nuke.thisNode()\['class'].setValues(classNode)\n"}
+ addUserKnob {22 get -STARTLINE T MultiNodeEditor().run()}
+ addUserKnob {22 clear -STARTLINE T MultiNodeEditor().remove_knobs()}
+ addUserKnob {26 ""}
+ addUserKnob {1 node_name l nodeName -STARTLINE}
+ addUserKnob {1 knob_name l knobName -STARTLINE}
+ knob_name mix,operation
+ addUserKnob {4 custom_knobs l "" +STARTLINE +INVISIBLE M {}}
+ addUserKnob {26 ""}
+}

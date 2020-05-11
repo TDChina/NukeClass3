@@ -1,0 +1,87 @@
+#! Y:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+version 11.3 v5
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {41 global_font_scale l "global font scale" T Text1.global_font_scale}
+ addUserKnob {41 font T Text1.font}
+ addUserKnob {41 message T Text1.message}
+ addUserKnob {26 ""}
+ addUserKnob {22 copyAtoB T "text1 = nuke.thisNode().node(\"Text1\").knob(\"message\").value()\nnuke.thisNode().node(\"Text2\").knob(\"message\").setValue(text1)" +STARTLINE}
+ addUserKnob {22 copyTo -STARTLINE T "node = nuke.thisNode()\['selectText'].value()\nprint(node)\nwith nuke.root():\n    getText = nuke.toNode(\"Text1\").knob(\"message\").value()\nwith nuke.toNode(\"Group1\"):\n\tnuke.toNode(node).knob(\"message\").setValue(getText)"}
+ addUserKnob {4 selectText -STARTLINE M {Text1 Text2 "" "" "" "" "" ""}}
+ selectText Text2
+ addUserKnob {22 copytogroup l "copy to group" -STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message texteeesagegwew
+  old_message {{116 101 120 116 101 101 101 115 97 103 101 103 119 101 119}
+    }
+  box {781 1062 1140 1132.5}
+  transforms {{0 2}
+    }
+  cursor_position 15
+  font {{ Gabriola : Regular : Gabriola.ttf : 0 }}
+  global_font_scale 0.695
+  center {1024 778}
+  cursor_initialised true
+  initial_cursor_position {{781 1132.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name Text1
+  selected true
+  xpos -46
+  ypos 101
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message texteeesagegwew
+  old_message {{116 101 120 116 101 101 101 115 97 103 101 103 119 101 119}
+    }
+  box {779.5 902 1138.5 972.5}
+  transforms {{0 2}
+    }
+  cursor_position 9
+  font {[value Text1.font]}
+  global_font_scale {{Text1.global_font_scale x1 1.28}}
+  center {1024 778}
+  cursor_initialised true
+  initial_cursor_position {{779.5 972.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name Text2
+  xpos 124
+  ypos 97
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 50
+  ypos 170
+ }
+ Output {
+  name Output1
+  xpos 50
+  ypos 287
+ }
+ Viewer {
+  frame_range 1-100
+  name Viewer1
+  xpos 144
+  ypos 340
+ }
+end_group

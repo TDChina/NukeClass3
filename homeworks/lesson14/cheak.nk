@@ -1,0 +1,86 @@
+#! Y:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1904" h="1011" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="857" stretch="1"/>
+            <splitter orientation="2">
+                <split size="449"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="514"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="999"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                <page id="uk.co.thefoundry.scripteditor.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/my_script/NukeClass3/homeworks/lesson14/cheak.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+NoOp {
+ inputs 0
+ name MatteChecker
+ tile_color 0xf20000ff
+ gl_color 0xa31aff
+ note_font_color 0xc9531eff
+ xpos 908
+ ypos 250
+ addUserKnob {20 MatteChecker}
+ addUserKnob {4 Switch M {Original Alpha Checkboard CustomColor background ""}}
+ Switch CustomColor
+ addUserKnob {22 update -STARTLINE T "# _*_ coding: utf-8 _*_\n# @Time      : 4/28/2020 10:32 PM\n# @author    : zuokangbo\n# @eamil     : 1156298563@qq.com\n# @File      : switch.py\n# @software  : PyCharm\n\ndef layoutNode(selecteNode, node):\n    node\['xpos'].setValue(selecteNode.xpos() + selecteNode.screenWidth() / 2 - node.screenWidth() / 2)\n    node\['ypos'].setValue(selecteNode.ypos() + 120)\n\n\ndef createNode(node, selecteNode, x, y = 0):\n    node\['xpos'].setValue(selecteNode.xpos() - x)\n    node\['ypos'].setValue(selecteNode.ypos() + y)\n\n\ndef switchImages():\n    node = nuke.thisNode()\n    MatteCh = node\['Switch'].value()\n    if MatteCh == \"Original\":\n        nuke.toNode(\"MCHswitch_temp\").knob(\"which\").setValue(1)\n        return 0\n    if MatteCh == \"Alpha\":\n        nuke.toNode(\"MCHswitch_temp\").knob(\"which\").setValue(0)\n        return 0\n    if MatteCh == \"Checkboard\":\n        nuke.toNode(\"MCHMerge_temp\").setInput(0, nuke.toNode(\"MCHCheckerBoard_temp\"))\n        nuke.toNode(\"MCHswitch_temp\").knob(\"which\").setValue(2)\n        return 0\n    if MatteCh == \"background\":\n        nuke.toNode(\"MCHMerge_temp\").setInput(0, nuke.toNode(\"MCHreformat_temp\"))\n        nuke.toNode(\"MCHswitch_temp\").knob(\"which\").setValue(2)\n        return 0\n    if MatteCh == \"CustomColor\":\n        nuke.toNode(\"MCHMerge_temp\").setInput(0, nuke.toNode(\"MCHConstant_temp\"))\n        nuke.toNode(\"MCHswitch_temp\").knob(\"which\").setValue(2)\n        return 0\n\n\ndef main():\n    if nuke.selectedNode().Class() in ('Read'):\n        selecteNode = nuke.selectedNode()\n        dot = nuke.createNode(\"Dot\", 'name \"MCHDot_temp\"', inpanel = False)\n        layoutNode(selecteNode, dot)\n        shuffle = nuke.createNode(\"Shuffle\", 'name \"MCHshuffle_temp\"', inpanel = False)\n        layoutNode(dot, shuffle)\n        shuffle.knob(\"red\").setValue(\"alpha\")\n        shuffle.knob(\"blue\").setValue(\"alpha\")\n        shuffle.knob(\"green\").setValue(\"alpha\")\n        switch = nuke.createNode(\"Switch\", 'name \"MCHswitch_temp\"', inpanel = False)\n        layoutNode(shuffle, switch)\n        switch\['xpos'].setValue(switch.xpos() - 150)\n        switch.setInput(1, dot)\n        switch.knob(\"which\").setValue(1)\n        constant = nuke.nodes.Constant(name = 'MCHConstant_temp')\n        createNode(constant, selecteNode, 150)\n        check = nuke.nodes.CheckerBoard2(name = 'MCHCheckerBoard_temp')\n        createNode(check, selecteNode, 250)\n        premult = nuke.nodes.Premult(name = 'MCHPremult_temp')\n        createNode(premult, selecteNode, 150, 150)\n        merge = nuke.nodes.Merge2(name = 'MCHMerge_temp')\n        createNode(merge, selecteNode, 250, 250)\n        background = nuke.nodes.Read(name = 'MCHbackground_temp')\n        createNode(background, selecteNode, 350)\n\n        reformat = nuke.nodes.Reformat(name = 'MCHreformat_temp')\n        createNode(reformat, selecteNode, 350, 100)\n\n        reformat.setInput(0, background)\n        reformat.knob(\"format\").fromScript('\{\{%s.format\}\}' % selecteNode.knob('name').value())\n\n        premult.setInput(0, dot)\n        merge.setInput(1, premult)\n        switch.setInput(2, merge)\n        merge.setInput(0, constant)\n        nuke.toNode(\"Viewer1\").setInput(0, switch)\n        constant.knob(\"format\").fromScript('\{\{%s.format\}\}' % selecteNode.knob('name').value())\n        check.knob(\"format\").fromScript('\{\{%s.format\}\}' % selecteNode.knob('name').value())\n\n        MatteCh = nuke.thisNode()\n        constant.knob(\"color\").fromScript('\{\{%s.BGcolor\}\}' %MatteCh.knob('name').value())\n        if MatteCh.knob(\"background\").value()==\"\":\n            nuke.message(\"Background image is not specified\")\n        else:\n            background.knob('file').fromUserText(MatteCh.knob('background').value())\n\n    else:\n        nuke.message(\"Please select at least one Read node\")\n\n\ndef updataMC():\n    if not nuke.toNode(\"MCHDot_temp\"):\n        if nuke.nodesSelected():\n            main()\n        else:\n            nuke.message(\"Please select at least one Read node\")\n\n    else:\n        switchImages()\n\n\nupdataMC()"}
+ addUserKnob {22 remove -STARTLINE T "allNode = \[\"MCHswitch_temp\",'MCHMerge_temp','MCHDot_temp','MCHConstant_temp','MCHPremult_temp','MCHCheckerBoard_temp','MCHreformat_temp','MCHbackground_temp','MCHshuffle_temp']\ndef removeNode():\n    if nuke.toNode(\"MCHMerge_temp\"):\n        for i in allNode:\n            nuke.delete(nuke.toNode(\"%s\" %i))\n            \nremoveNode()"}
+ addUserKnob {26 ""}
+ addUserKnob {2 background}
+ addUserKnob {26 ""}
+ addUserKnob {18 BGcolor}
+ BGcolor {0.085 0.099 0.338}
+ addUserKnob {6 BGcolor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ BGcolor_panelDropped true
+ addUserKnob {6 BGcolor_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+}
+Read {
+ inputs 0
+ file_type tiff
+ file H:/work/ZKB/element_dcmtgyd_guanmu_model/images/1.tif
+ format "4096 2305 0 0 4096 2305 1 "
+ proxy_format "4096 2305 0 0 4096 2305 1 "
+ origset true
+ name Read1
+ xpos 499
+ ypos -21
+}
+Viewer {
+ frame_range 1-100
+ name Viewer1
+ xpos 561
+ ypos 223
+}
