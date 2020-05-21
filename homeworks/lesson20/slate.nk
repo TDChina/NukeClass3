@@ -1,0 +1,754 @@
+#! Y:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-8" y="-8" w="1920" h="1027" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1257" stretch="1"/>
+            <splitter orientation="2">
+                <split size="575"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="404"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                    <page id="DAG.2"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/my_script/NukeClass3/homeworks/lesson20/slate.nk
+ frame 1089
+ first_frame 1000
+ last_frame 1682
+ lock_range true
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Read {
+ inputs 0
+ file_type jpeg
+ file G:/work/test/meisanmei/meisan.####.jpg
+ format "852 480 0 0 852 480 1.00167 "
+ first 1000
+ last 1682
+ origfirst 1000
+ origlast 1682
+ origset true
+ name Read1
+ xpos 147
+ ypos -208
+}
+Group {
+ name Group1
+ xpos 147
+ ypos -67
+ addUserKnob {20 Slate}
+ addUserKnob {26 copyright l "" +STARTLINE T "slate v1.0"}
+ addUserKnob {26 ""}
+ addUserKnob {6 add_slate l "add slate" +STARTLINE}
+ add_slate true
+ addUserKnob {4 thumbnallModel l thumbnall M {first middle last custom "" ""}}
+ thumbnallModel middle
+ addUserKnob {3 thumbFrame l frame -STARTLINE}
+ addUserKnob {3 first l "first frame:"}
+ first 1000
+ addUserKnob {3 head_handle l "head handle" -STARTLINE}
+ addUserKnob {3 tail_handle l "tail handle" -STARTLINE}
+ addUserKnob {41 format l "output format" T Reformat1.format}
+ addUserKnob {1 show_name l "show name"}
+ show_name TDC
+ addUserKnob {6 show_auto l auto -STARTLINE}
+ addUserKnob {1 version_name l "version name"}
+ version_name "\[lrange \[split \[basename \[value \[topnode].file]] .] 0 end-2]"
+ addUserKnob {6 version_auto l auto -STARTLINE}
+ addUserKnob {41 message l label T Label.message}
+ addUserKnob {41 message_1 l content -STARTLINE T Content.message}
+ addUserKnob {20 Logo}
+ addUserKnob {4 logo_type l "logo type" M {Icon text}}
+ logo_type text
+ addUserKnob {2 logoFile l file}
+ logoFile D:/my_script/NukeClass3/homeworks/lesson20/logo.png
+ addUserKnob {14 logoScale l scale R 0.1 10}
+ logoScale 0.32
+ addUserKnob {7 LogoOpacity l opacity}
+ LogoOpacity 1
+ addUserKnob {1 logoText l text}
+ logoText sdfeewf
+ addUserKnob {19 LogoColor l color}
+ LogoColor 0.84
+ addUserKnob {6 LogoColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 LogoColor_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 LogoColor_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 LogoColor_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 LogoColor_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 LogoColor_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 LogoColor_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {20 Burnin}
+ addUserKnob {4 burninMask l mask M {no 2.37 1.77 custom ""}}
+ burninMask 2.37
+ addUserKnob {3 burninPixel l pixel -STARTLINE}
+ addUserKnob {7 maskOpacity l "mask opacity"}
+ maskOpacity 0.9
+ addUserKnob {26 ""}
+ addUserKnob {6 overlayBurnin l "overlay burnin" +STARTLINE}
+ overlayBurnin true
+ addUserKnob {7 burninOpacity l "burnin opacity"}
+ burninOpacity 1
+ addUserKnob {4 useLogo l "use logo" M {no off}}
+ addUserKnob {41 message_2 l message T upper_middle.message}
+ addUserKnob {41 message_3 l message T lower_middle.message}
+ addUserKnob {41 message_4 l message T lower_left.message}
+ addUserKnob {41 message_5 l message T upper_left.message}
+ addUserKnob {41 message_6 l message T upper_right.message}
+ addUserKnob {41 message_7 l message T lower_right.message}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ TimeOffset {
+  time_offset {{first-(input.first_frame+head_handle)}}
+  time ""
+  name TimeOffset1
+  xpos 0
+  ypos 58
+ }
+ FrameRange {
+  first_frame {{first}}
+  last_frame {{input.last_frame-tail_handle}}
+  time ""
+  name FrameRange1
+  xpos 0
+  ypos 107
+ }
+ Reformat {
+  format "852 480 0 0 852 480 1.00167 "
+  name Reformat1
+  xpos 0
+  ypos 160
+ }
+set N15b27400 [stack 0]
+ Dot {
+  name Dot2
+  xpos 34
+  ypos 258
+ }
+set N15b26400 [stack 0]
+ Remove {
+  name Remove3
+  xpos 223
+  ypos 354
+ }
+set N15b26000 [stack 0]
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message TDC
+  old_message {{84 68 67}
+    }
+  box {{input.width*0.01} {input.height*0.9} {input.width*0.3} {input.height*0.97}}
+  transforms {{0 2}
+    }
+  cursor_position 3
+  global_font_scale {{input.height*0.0005}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 480}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name upper_left
+  xpos 180
+  ypos 432
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[python \{getuser()\}]"
+  old_message {{91 112 121 116 104 111 110 32 123 103 101 116 117 115 101 114 40 41 125 93}
+    }
+  box {{input.width*0.4} {upper_left.box.y} {input.width*0.6} {upper_left.box.t}}
+  transforms {{0 2}
+    }
+  cursor_position 20
+  global_font_scale {{upper_left.global_font_scale}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 480}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name upper_middle
+  xpos 180
+  ypos 458
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[date %Y-%m-%d/%H:%M]"
+  old_message {{50 48 50 48 45 48 53 45 49 57 47 50 49 58 51 48}
+    }
+  old_expression_markers {{0 15}
+    }
+  box {{input.width*0.75} {upper_left.box.y} {input.width*0.98} {upper_left.box.t}}
+  transforms {{0 2}
+    }
+  cursor_position 21
+  global_font_scale {{upper_left.global_font_scale}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 480}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name upper_right
+  xpos 180
+  ypos 484
+ }
+ Transform {
+  translate {0 {(Rectangle13.area.t/input.height+0.01)*input.height}}
+  center {1024 778}
+  name Transform4
+  xpos 180
+  ypos 529
+  disable {{overlayBurnin}}
+ }
+push $N15b26000
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value frame]/\[value input.last_frame]"
+  old_message {{49 48 56 57 47 49 54 56 50}
+    }
+  old_expression_markers {{0 3 5 8}
+    }
+  box {{upper_left.box.x} {input.height*0.03} {upper_left.box.r} {input.height*0.08}}
+  transforms {{0 2}
+    }
+  cursor_position 38
+  global_font_scale {{upper_left.global_font_scale}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 480}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name lower_left
+  xpos 292
+  ypos 431
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[metadata input/timecode]"
+  old_expression_markers {{0 -1}
+    }
+  box {{input.width*0.4} {lower_left.box.y} {input.width*0.6} {lower_left.box.t}}
+  transforms {{0 2}
+    }
+  cursor_position 25
+  global_font_scale {{upper_left.global_font_scale}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 480}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name lower_middle
+  xpos 292
+  ypos 457
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value version_name]"
+  old_message {{109 101 105 115 97 110}
+    }
+  old_expression_markers {{0 5}
+    }
+  box {{input.width*0.7} {lower_left.box.y} {input.width*0.97} {lower_left.box.t}}
+  xjustify center
+  transforms {{0 2}
+    }
+  cursor_position 20
+  global_font_scale {{upper_left.global_font_scale}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 480}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name lower_right
+  xpos 292
+  ypos 483
+ }
+ Transform {
+  translate {0 {-(Rectangle13.area.t/input.height+0.01)*input.height}}
+  center {1024 778}
+  name Transform5
+  xpos 292
+  ypos 530
+  disable {{overlayBurnin}}
+ }
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos 231
+  ypos 617
+ }
+push $N15b27400
+ Remove {
+  name Remove2
+  xpos 211
+  ypos 160
+ }
+ Rectangle {
+  opacity {{maskOpacity}}
+  area {0 {"burninMask == 0 ? 0 : burninMask==3 ? parent.input.height-burninPixel : parent.input.height-(parent.input.height-parent.input.width/\[value burninMask])/2"} {parent.input.width} {"burninMask==0 ? 0 : parent.input.height"}}
+  color {0 0 0 1}
+  name Rectangle12
+  xpos 386
+  ypos 166
+ }
+ Rectangle {
+  opacity {{maskOpacity}}
+  area {0 0 {parent.input.width} {"input.height-(burninMask == 0 ? 0 : burninMask==3 ? parent.input.height-burninPixel : parent.input.height-(parent.input.height-parent.input.width/\[value burninMask])/2)"}}
+  color {0 0 0 1}
+  name Rectangle13
+  xpos 386
+  ypos 192
+ }
+ Merge2 {
+  inputs 2
+  mix {{burninOpacity}}
+  name Merge6
+  xpos 420
+  ypos 746
+ }
+push $N15b26400
+ Merge2 {
+  inputs 2
+  name Merge4
+  xpos -19
+  ypos 844
+ }
+push $N15b27400
+ Dot {
+  name Dot1
+  xpos -622
+  ypos 153
+ }
+set N44638400 [stack 0]
+ Remove {
+  name Remove1
+  xpos -834
+  ypos 198
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value logoText]"
+  old_message {{115 100 102 101 101 119 102}
+    }
+  old_expression_markers {{0 6}
+    }
+  box {{input.width*0.77} {input.height*0.85} {input.width*0.98} {input.height*0.97}}
+  transforms {{0 2}
+    }
+  global_font_scale {{input.height*0.001}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{664.5 462.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  color {{LogoColor} {LogoColor} {LogoColor} {LogoColor}}
+  name Text2
+  xpos -860
+  ypos 284
+ }
+ Read {
+  inputs 0
+  file_type png
+  file "\[value logoFile]"
+  format "128 128 0 0 128 128 1 "
+  origset true
+  name Read1
+  xpos -1245
+  ypos 371
+ }
+ Premult {
+  name Premult1
+  xpos -1245
+  ypos 457
+ }
+ Transform {
+  scale {{parent.logoScale+0.5}}
+  center {{input.width*0.5} {input.height*0.5}}
+  name Transform3
+  xpos -1129
+  ypos 457
+ }
+ Transform {
+  translate {{parent.input.width*0.87} {parent.input.height*0.77}}
+  scale {{parent.input.height*0.0015}}
+  center {{input.width*0.5} {input.height*0.5}}
+  name Transform2
+  xpos -1015
+  ypos 457
+ }
+ Switch {
+  inputs 2
+  which {{logo_type}}
+  name Switch4
+  xpos -860
+  ypos 380
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  format {{{Reformat1.format}}}
+  name Constant1
+  xpos -749
+  ypos 27
+ }
+set N41108400 [stack 0]
+ Rectangle {
+  area {0 0 {input.width/10} {input.height/10}}
+  color {1 0 0 0}
+  name Rectangle1
+  xpos -952
+  ypos 50
+ }
+ Rectangle {
+  area {{input.width/10} 0 {input.width/5} {input.height/10}}
+  color {0 1 0 0}
+  name Rectangle2
+  xpos -952
+  ypos 73
+ }
+ Rectangle {
+  area {{2*(input.width/10)} 0 {3*(input.width/10)} {input.height/10}}
+  color {0 0 1 0}
+  name Rectangle3
+  xpos -952
+  ypos 93
+ }
+ Rectangle {
+  area {{3*(input.width/10)} 0 {4*(input.width/10)} {input.height/10}}
+  color {1 1 0 0}
+  name Rectangle4
+  xpos -952
+  ypos 119
+ }
+ Rectangle {
+  area {{4*(input.width/10)} 0 {5*(input.width/10)} {input.height/10}}
+  color {1 0 1 0}
+  name Rectangle5
+  xpos -952
+  ypos 145
+ }
+ Rectangle {
+  area {{5*(input.width/10)} 0 {6*(input.width/10)} {input.height/10}}
+  color {0 1 1 0}
+  name Rectangle6
+  xpos -952
+  ypos 171
+ }
+ Rectangle {
+  area {{7*(input.width/10)} 0 {8*(input.width/10)} {input.height/10}}
+  color {1 1 1 1}
+  name Rectangle7
+  xpos -952
+  ypos 197
+ }
+ Rectangle {
+  area {{6*(input.width/10)} 0 {7*(input.width/10)} {input.height/10}}
+  color {0 0 0 1}
+  name Rectangle8
+  xpos -952
+  ypos 223
+ }
+ Rectangle {
+  area {{8*(input.width/10)} 0 {9*(input.width/10)} {input.height/10}}
+  color {0.5 0.5 0.5 1}
+  name Rectangle9
+  xpos -952
+  ypos 249
+ }
+ Rectangle {
+  area {{9*(input.width/10)} 0 {10*(input.width/10)} {input.height/10}}
+  color {0.25 0.25 0.25 1}
+  name Rectangle10
+  xpos -952
+  ypos 275
+ }
+ Rectangle {
+  area {0 {input.height/10} {input.width} {input.height*0.15}}
+  ramp smooth0
+  p1 {{input.width} {input.height/10}}
+  p0 {0 {input.height/10}}
+  name Rectangle11
+  xpos -952
+  ypos 301
+ }
+push $N44638400
+ FrameHold {
+  first_frame {{thumbFrame}}
+  name FrameHold4
+  xpos -254
+  ypos 229
+ }
+push $N44638400
+ FrameHold {
+  first_frame {{input.last_frame}}
+  name FrameHold3
+  xpos -364
+  ypos 229
+ }
+push $N44638400
+ FrameHold {
+  first_frame {{first+(input.last_frame-first)/2}}
+  name FrameHold2
+  xpos -475
+  ypos 229
+ }
+push $N44638400
+ FrameHold {
+  first_frame {{input.first_frame}}
+  name FrameHold1
+  xpos -584
+  ypos 229
+ }
+ Switch {
+  inputs 4
+  which {{thumbnallModel}}
+  name Switch3
+  xpos -342
+  ypos 361
+ }
+ Transform {
+  translate {{input.width/4} {input.height/10}}
+  scale 0.3
+  center {{input.width/2} {input.height/2}}
+  name Transform1
+  xpos -492
+  ypos 361
+ }
+push $N41108400
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -749
+  ypos 155
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value show_name]"
+  old_message {{84 68 67}
+    }
+  old_expression_markers {{0 2}
+    }
+  box {{input.width*0.02} {input.height*0.85} {input.width*0.3} {input.height*0.95}}
+  transforms {{0 2}
+    }
+  cursor_position 17
+  global_font_scale {{input.height/1080}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 480}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name slatShow
+  xpos -749
+  ypos 218
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value version_name]"
+  old_message {{109 101 105 115 97 110}
+    }
+  old_expression_markers {{0 5}
+    }
+  box {{input.width*0.2 x1000 454.3} {input.height*0.2 x1000 102.5} {input.width*0.2 x1000 198.7} {input.height*0.3 x1000 198.5}}
+  transforms {{0 2}
+    }
+  cursor_position 20
+  global_font_scale {{input.height*0.001}}
+  center {426 240}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 480}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 426 240 0 0 1 1 0 0 0 0}
+    }
+  name version_name
+  xpos -749
+  ypos 244
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "date\nfps\nduration\ncolorspace\nartist\ncomment"
+  old_message {{100 97 116 101 10 102 112 115 10 100 117 114 97 116 105 111 110 10 99 111 108 111 114 115 112 97 99 101 10 97 114 116 105 115 116 10 99 111 109 109 101 110 116}
+    }
+  box {{input.width*0.08} {input.height*0.4} {input.width*0.2} {input.height*0.7}}
+  xjustify right
+  transforms {{0 2}
+    }
+  font_size_values {{0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100 14 100 15 100 16 100 17 100 18 100 19 100 20 100 21 100 22 100 23 100 24 100 25 100 26 100 27 100 28 100 29 100 30 100 31 100 32 100 33 100 34 100 35 100 36 100 37 100 38 100 39 100 40 100 41 100 42 100 0 99 1 99 2 99 3 99 4 99 5 99 6 99 7 99 8 99 9 99 10 99 11 99 12 99 13 99 14 99 15 99 16 99 17 99 18 99 19 99 20 99 21 99 22 99 23 99 24 99 25 99 26 99 27 99 28 99 29 99 30 99 31 99 32 99 33 99 34 99 35 99 36 99 37 99 38 99 39 99 40 99 41 99 42 99}
+    }
+  cursor_position 28
+  global_font_scale 0.2
+  center {426 240}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{168 348}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 426 240 0 0 1 1 0 0 0 0}
+    }
+  color {0.325 0.97 1 1}
+  name Label
+  xpos -749
+  ypos 270
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[date %Y-%m-%d]\n\[value root.fps]\n\[value Input1.first_frame]-\[value Input1.last_frame]\nsRGB\n\[python \{getuser()\}]\nThis is test for Slate rizmoaaaaaaaaaaaars"
+  old_message {{50 48 50 48 45 48 53 45 49 57 10 50 52 10 49 48 48 48 45 49 54 56 50 10 115 82 71 66 10 91 112 121 116 104 111 110 32 123 103 101 116 117 115 101 114 40 41 125 93 10 84 104 105 115 32 105 115 32 116 101 115 116 32 102 111 114 32 83 108 97 116 101 32 114 105 122 109 111 97 97 97 97 97 97 97 97 97 97 97 97 114 115}
+    }
+  old_expression_markers {{0 9 11 12 14 17 19 22}
+    }
+  box {{input.width*0.21} {input.height*0.4} {input.width*0.6} {input.height*0.7}}
+  transforms {{0 2}
+    }
+  cursor_position 85
+  global_font_scale 0.2
+  center {426 240}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{168 348}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 426 240 0 0 1 1 0 0 0 0}
+    }
+  name Content
+  xpos -749
+  ypos 296
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -749
+  ypos 370
+ }
+ Merge2 {
+  inputs 2
+  mix {{LogoOpacity}}
+  name Merge3
+  xpos -749
+  ypos 457
+ }
+push $N44638400
+ Switch {
+  inputs 2
+  which {{add_slate}}
+  name Switch1
+  xpos -683
+  ypos 987
+ }
+ Switch {
+  inputs 2
+  which {{frame>=first}}
+  name Switch2
+  xpos -19
+  ypos 977
+ }
+ Output {
+  name Output1
+  xpos -19
+  ypos 1074
+ }
+push $N15b27400
+ PostageStamp {
+  name PostageStamp1
+  xpos 921
+  ypos 435
+  hide_input true
+  postage_stamp true
+ }
+ Crop {
+  inputs 0
+  box {0 0 2048 1556}
+  name Crop1
+  selected true
+  xpos 636
+  ypos 1115
+ }
+end_group
+Viewer {
+ frame 1089
+ frame_range 1000-1682
+ name Viewer1
+ xpos -40
+ ypos -10
+}
