@@ -1,0 +1,174 @@
+#! Y:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+#write_info Write1 file:"D:/my_script/NukeClass3/homeworks/lesson18/callback_zkb_v002/callback_zkb_v002.mov" format:"2048 1556 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"default (Gamma2.2)" datatype:"unknown" transfer:"unknown" views:"main" colorManagement:"Nuke"
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1904" h="1011" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1241" stretch="1"/>
+            <splitter orientation="2">
+                <split size="565"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="398"/>
+                <dock id="" activePageId="DAG.1">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="uk.co.thefoundry.scripteditor.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                <page id="uk.co.thefoundry.scripteditor.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/my_script/NukeClass3/homeworks/lesson18/callback_zkb_v002.nk
+ frame 20
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Group {
+ inputs 0
+ name Group1
+ xpos 379
+ ypos -2
+ addUserKnob {20 User}
+ addUserKnob {41 global_font_scale l "global font scale" T Text1.global_font_scale}
+ addUserKnob {41 font T Text1.font}
+ addUserKnob {41 message T Text1.message}
+ addUserKnob {26 ""}
+ addUserKnob {22 copyAtoB T "text1 = nuke.thisNode().node(\"Text1\").knob(\"message\").value()\nnuke.thisNode().node(\"Text2\").knob(\"message\").setValue(text1)" +STARTLINE}
+ addUserKnob {22 copyTo -STARTLINE T "node = nuke.thisNode()\['selectText'].value()\nprint(node)\nwith nuke.root():\n    getText = nuke.toNode(\"Text1\").knob(\"message\").value()\nwith nuke.toNode(\"Group1\"):\n\tnuke.toNode(node).knob(\"message\").setValue(getText)"}
+ addUserKnob {4 selectText -STARTLINE M {Text1 Text2 "" "" "" "" "" ""}}
+ selectText Text2
+ addUserKnob {22 copytogroup l "copy to group" -STARTLINE T "if nuke.toNode(\"Group1\").Class() ==\"Group\":\n\tnuke.message(\"node class already group\")\nelse:\n\tnuke.thisNode().makeGroup()\n\n"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\nteste"
+  old_message {{10 116 101 115 116 101}
+    }
+  box {781 1062 1140 1132.5}
+  transforms {{0 2}
+    }
+  cursor_position 6
+  font {{ Gabriola : Regular : Gabriola.ttf : 0 }}
+  global_font_scale 1.02
+  center {1024 778}
+  cursor_initialised true
+  initial_cursor_position {{781 1132.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name Text1
+  selected true
+  xpos -46
+  ypos 101
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message root_text
+  old_message {{114 111 111 116 95 116 101 120 116}
+    }
+  box {779.5 902 1138.5 972.5}
+  transforms {{0 2}
+    }
+  cursor_position 9
+  font {[value Text1.font]}
+  global_font_scale {{Text1.global_font_scale x1 1.28}}
+  center {1024 778}
+  cursor_initialised true
+  initial_cursor_position {{779.5 972.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name Text2
+  xpos 124
+  ypos 97
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 50
+  ypos 170
+ }
+ Output {
+  name Output1
+  xpos 50
+  ypos 287
+ }
+ Viewer {
+  frame_range 1-100
+  name Viewer1
+  xpos 144
+  ypos 340
+ }
+end_group
+Write {
+ file D:/my_script/NukeClass3/homeworks/lesson18/callback_zkb_v002/callback_zkb_v002.mov
+ file_type mov
+ meta_codec ap4h
+ mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
+ mov64_codec ap4h
+ mov64_bitrate 20000
+ mov64_bitrate_tolerance 40000000
+ mov64_quality_min 2
+ mov64_quality_max 31
+ mov64_gop_size 12
+ mov64_b_frames 0
+ checkHashOnRead false
+ beforeRender export_decide()
+ afterRender set_up_version()
+ name Write1
+ xpos 379
+ ypos 24
+}
+Read {
+ inputs 0
+ file_type tiff
+ file "//ZUOKANGBO/work/test/rock_file/bake/ rock_ao.tif"
+ format "4096 4096 0 0 4096 4096 1 "
+ origset true
+ name Read1
+ xpos 601
+ ypos -13
+}
+Viewer {
+ frame_range 1-100
+ name Viewer1
+ selected true
+ xpos 379
+ ypos 169
+}
