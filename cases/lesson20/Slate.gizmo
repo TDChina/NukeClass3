@@ -1,0 +1,1031 @@
+#! C:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+version 11.3 v5
+Gizmo {
+ knobChanged knob_changed()
+ lock_connections true
+ addUserKnob {20 slate l Slate}
+ addUserKnob {26 info l "" +STARTLINE T "Slate v1.0"}
+ addUserKnob {26 ""}
+ addUserKnob {6 addSlate l "add slate" +STARTLINE}
+ addSlate true
+ addUserKnob {4 thumbMode l thumbnail M {first middle last custom "" "" ""}}
+ thumbMode middle
+ addUserKnob {3 thumbFrame l frame -STARTLINE +HIDDEN}
+ thumbFrame 1100
+ addUserKnob {3 first l "first frame:"}
+ first 1001
+ addUserKnob {3 headHandle l "head handle" -STARTLINE}
+ addUserKnob {3 tailHandle l "tail handle" -STARTLINE}
+ addUserKnob {41 format l "output format" T Reformat1.format}
+ addUserKnob {1 showName l "show name" +DISABLED}
+ showName TDC
+ addUserKnob {6 autoShow l auto -STARTLINE}
+ autoShow true
+ addUserKnob {1 versionName l "version name" +DISABLED}
+ versionName tdc_sc001_sh0010_cmp_master_v001
+ addUserKnob {6 autoVersion l auto -STARTLINE}
+ autoVersion true
+ addUserKnob {41 message_6 l label T Label.message}
+ addUserKnob {41 message_7 l content -STARTLINE T Content.message}
+ addUserKnob {20 logo l Logo}
+ addUserKnob {4 logoType l "logo type" M {icon text ""}}
+ addUserKnob {2 logoFile l file}
+ logoFile W:/develop/tdclass/logo.png
+ addUserKnob {14 logoScale l scale R 0.1 10}
+ logoScale 0.7
+ addUserKnob {7 logoOpacity l opacity}
+ logoOpacity 1
+ addUserKnob {1 logoText l "logo text" +HIDDEN}
+ logoText "TD School"
+ addUserKnob {19 logoColor l color +HIDDEN}
+ logoColor {1 1 1 1}
+ addUserKnob {6 logoColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 logoColor_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 logoColor_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {20 burnin l Burnin}
+ addUserKnob {4 maskType l mask M {no 2.35 1.77 custom "" "" ""}}
+ maskType 2.35
+ addUserKnob {3 maskPixel l pixel -STARTLINE}
+ maskPixel 100
+ addUserKnob {7 maskOpacity l "mask opacity"}
+ maskOpacity 0.712
+ addUserKnob {26 ""}
+ addUserKnob {6 overlayBurnin l "overlay burnin" +STARTLINE}
+ addUserKnob {7 burninOpacity l "burnin opacity"}
+ burninOpacity 1
+ addUserKnob {41 burninColor l color T upper_left.color}
+ addUserKnob {4 useLogo l "use logo" M {no "upper left" "upper right" "lower left" "lower right"}}
+ useLogo "upper left"
+ addUserKnob {20 burninContents l "burnin contents" n 1}
+ burninContents 0
+ addUserKnob {41 message l "upper left" T upper_left.message}
+ addUserKnob {41 message_1 l "upper middle" T upper_middle.message}
+ addUserKnob {41 message_2 l "upper right" T upper_right.message}
+ addUserKnob {41 message_3 l "lower left" T lower_left.message}
+ addUserKnob {41 message_4 l "lower middle" T lower_middle.message}
+ addUserKnob {41 message_5 l "lower right" T lower_right.message}
+ addUserKnob {20 endGroup n -1}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  label Slate
+  note_font_size 40
+  xpos -690
+  ypos 187
+  bdwidth 580
+  bdheight 1244
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  label ColorBar
+  note_font_size 40
+  xpos -1101
+  ypos 506
+  bdwidth 349
+  bdheight 532
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  label logo
+  note_font_size 40
+  xpos -40
+  ypos 728
+  bdwidth 342
+  bdheight 325
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  label Mask
+  note_font_size 40
+  xpos 660
+  ypos 189
+  bdwidth 189
+  bdheight 265
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  label Burnin
+  note_font_size 40
+  xpos 339
+  ypos 539
+  bdwidth 342
+  bdheight 432
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  label "Logo Burnin"
+  note_font_size 40
+  xpos -100
+  ypos 1073
+  bdwidth 922
+  bdheight 525
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -25
+ }
+ TimeOffset {
+  time_offset {{first-(input.first_frame+headHandle)}}
+  time ""
+  name TimeOffset1
+  xpos -25
+  ypos 43
+ }
+ FrameRange {
+  first_frame {{first}}
+  last_frame {{input.last_frame-tailHandle}}
+  time ""
+  name FrameRange1
+  xpos -25
+  ypos 69
+ }
+ Reformat {
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  box_width 1920
+  filter Lanczos4
+  black_outside true
+  name Reformat1
+  xpos -25
+  ypos 122
+ }
+ Dot {
+  name Dot2
+  xpos 9
+  ypos 277
+ }
+set N5072800 [stack 0]
+ Dot {
+  name Dot7
+  xpos 186
+  ypos 277
+ }
+set N5072400 [stack 0]
+ Dot {
+  name Dot9
+  xpos 186
+  ypos 397
+ }
+set N5072000 [stack 0]
+ Remove {
+  name Remove4
+  xpos 152
+  ypos 756
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value logoText]"
+  old_message {{84 68 32 83 99 104 111 111 108}
+    }
+  old_expression_markers {{0 8}
+    }
+  box {{input.width*0.8} {input.height*0.85} {input.width*0.98} {input.height*0.94}}
+  xjustify right
+  transforms {{0 2}
+    }
+  cursor_position 16
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.7*input.height/1080}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 217}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  color {{parent.logoColor.r} {parent.logoColor.g} {parent.logoColor.b} {parent.logoColor.a}}
+  name Text1
+  xpos 152
+  ypos 995
+ }
+set N5095800 [stack 0]
+ Dot {
+  name Dot11
+  xpos 186
+  ypos 1115
+ }
+set N5095400 [stack 0]
+ Dot {
+  name Dot12
+  xpos 187
+  ypos 1170
+ }
+set N5095000 [stack 0]
+ Dot {
+  name Dot13
+  xpos 187
+  ypos 1233
+ }
+set N5094c00 [stack 0]
+ Dot {
+  name Dot17
+  xpos 187
+  ypos 1290
+ }
+ Transform {
+  translate {{input.width*0.026} {-input.height*0.85}}
+  scale 0.5
+  center {{input.width*0.89} {input.height*0.895}}
+  name Transform8
+  xpos 274
+  ypos 1286
+ }
+push $N5094c00
+ Transform {
+  translate {{-(center.x-input.width*0.06)} {-input.height*0.85}}
+  scale 0.5
+  center {{input.width*0.89} {input.height*0.895}}
+  name Transform7
+  xpos 273
+  ypos 1229
+ }
+push $N5095000
+ Transform {
+  translate {{input.width*0.026} {input.height*0.06}}
+  scale 0.5
+  center {{input.width*0.89} {input.height*0.895}}
+  name Transform6
+  xpos 276
+  ypos 1166
+ }
+push $N5095400
+ Transform {
+  translate {{-(center.x-input.width*0.06)} {input.height*0.06}}
+  scale 0.5
+  center {{input.width*0.89} {input.height*0.895}}
+  name Transform5
+  xpos 276
+  ypos 1111
+ }
+ Switch {
+  inputs 4
+  which {{useLogo-1}}
+  name Switch3
+  xpos 468
+  ypos 1208
+ }
+ Transform {
+  translate {0 {"useLogo<3 ? Transform4.translate.y : -Transform4.translate.y"}}
+  center {{Merge5.width/2} {Merge5.height/2}}
+  name Transform9
+  xpos 588
+  ypos 1208
+  disable {{!overlayBurnin}}
+ }
+ set Cb713000 [stack 0]
+ Read {
+  inputs 0
+  file_type png
+  file "\[value logoFile]"
+  format "304 217 0 0 304 217 1 "
+  origset true
+  version 1
+  raw true
+  name Read1
+  xpos 46
+  ypos 755
+ }
+ Premult {
+  name Premult1
+  xpos 46
+  ypos 864
+ }
+set Nb712800 [stack 0]
+ PostageStamp {
+  name PostageStamp1
+  xpos -24
+  ypos 1171
+  hide_input true
+  postage_stamp true
+ }
+ Dot {
+  name Dot20
+  xpos 10
+  ypos 1378
+ }
+set Nb712000 [stack 0]
+ Dot {
+  name Dot19
+  xpos 10
+  ypos 1432
+ }
+set Nb73dc00 [stack 0]
+ Dot {
+  name Dot18
+  xpos 10
+  ypos 1486
+ }
+set Nb73d800 [stack 0]
+ Dot {
+  name Dot14
+  xpos 10
+  ypos 1544
+ }
+ Transform {
+  translate {{Dot9.width*0.95-center.x} {Dot9.height*0.06-center.y}}
+  scale {{parent.logoScale*0.65*Dot9.height/1080}}
+  center {{input.width/2} {input.height/2}}
+  name Transform13
+  xpos 89
+  ypos 1540
+ }
+push $Nb73d800
+ Transform {
+  translate {{Dot9.width*0.05-center.x} {Dot9.height*0.06-center.y}}
+  scale {{parent.logoScale*0.65*Dot9.height/1080}}
+  center {{input.width/2} {input.height/2}}
+  name Transform12
+  xpos 86
+  ypos 1482
+ }
+push $Nb73dc00
+ Transform {
+  translate {{Dot9.width*0.95-center.x} {Dot9.height*0.95-center.y}}
+  scale {{parent.logoScale*0.65*Dot9.height/1080}}
+  center {{input.width/2} {input.height/2}}
+  name Transform11
+  xpos 89
+  ypos 1428
+ }
+push $Nb712000
+ Transform {
+  translate {{Dot9.width*0.05-center.x} {Dot9.height*0.95-center.y}}
+  scale {{parent.logoScale*0.65*Dot9.height/1080}}
+  center {{input.width/2} {input.height/2}}
+  name Transform10
+  xpos 87
+  ypos 1374
+ }
+ Switch {
+  inputs 4
+  which {{useLogo-1}}
+  name Switch6
+  xpos 316
+  ypos 1446
+ }
+clone $Cb713000 {
+  xpos 448
+  ypos 1446
+  selected false
+ }
+ Switch {
+  inputs 2
+  which {{logoType}}
+  name Switch5
+  xpos 588
+  ypos 1446
+ }
+push $N5072400
+ Remove {
+  name Remove2
+  xpos 698
+  ypos 267
+ }
+ Rectangle {
+  opacity {{maskOpacity}}
+  area {0 {"maskType == 0 ? 0 : maskType==3 ? input.height-maskPixel : input.height-(input.height-input.width/\[value maskType])/2"} {input.width} {"maskType==0 ? 0 : input.height"}}
+  color {0 0 0 1}
+  name Rectangle12
+  xpos 698
+  ypos 309
+ }
+ Rectangle {
+  opacity {{maskOpacity}}
+  area {0 0 {input.width} {"maskType==0 ? 0 : maskType==3 ? maskPixel : (input.height-input.width/\[value maskType])/2"}}
+  color {0 0 0 1}
+  name Rectangle13
+  xpos 698
+  ypos 335
+ }
+push $N5072000
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos 698
+  ypos 393
+ }
+ Dot {
+  name Dot10
+  xpos 732
+  ypos 625
+ }
+set Nb768400 [stack 0]
+ Remove {
+  name Remove3
+  xpos 460
+  ypos 615
+ }
+set Nb768000 [stack 0]
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message TDC
+  old_message {{84 68 67}
+    }
+  box {{input.width*0.03} {input.height*0.7} {input.width*0.3} {input.height*0.98}}
+  transforms {{0 2}
+    }
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.4*input.height/1080}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{29.5 1056.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name upper_left
+  xpos 378
+  ypos 706
+  disable {{useLogo==1}}
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[python \{getuser()\}]"
+  old_message {{91 112 121 116 104 111 110 32 123 103 101 116 117 115 101 114 40 41 125 93}
+    }
+  box {{input.width*0.3} {input.height*0.7} {input.width*0.7} {input.height*0.98}}
+  xjustify center
+  transforms {{0 2}
+    }
+  cursor_position 20
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.4*input.height/1080}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{797.5 1060.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  color {{upper_left.color} {upper_left.color} {upper_left.color} {upper_left.color}}
+  name upper_middle
+  xpos 378
+  ypos 732
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[python \{strftime('%Y/%m/%d')\}]"
+  old_message {{91 112 121 116 104 111 110 32 123 115 116 114 102 116 105 109 101 40 39 37 89 47 37 109 47 37 100 39 41 125 93}
+    }
+  box {{input.width*0.7} {input.height*0.7} {input.width*0.97} {input.height*0.98}}
+  xjustify right
+  transforms {{0 2}
+    }
+  cursor_position 31
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.4*input.height/1080}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1375.5 1060.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  color {{upper_left.color} {upper_left.color} {upper_left.color} {upper_left.color}}
+  name upper_right
+  xpos 378
+  ypos 758
+  disable {{useLogo==2}}
+ }
+ Transform {
+  translate {0 {-(Rectangle13.area.t/input.height+0.01)*input.height}}
+  center {{input.width/2} {input.height/2}}
+  name Transform4
+  xpos 378
+  ypos 801
+  disable {{!overlayBurnin}}
+ }
+push $Nb768000
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value frame]/\[value input.last_frame]"
+  old_message {{49 48 48 49 47 49 52 52 57}
+    }
+  old_expression_markers {{0 3 5 8}
+    }
+  box {{input.width*0.03} {input.height*0.03} {input.width*0.3} {input.height*0.4}}
+  yjustify bottom
+  transforms {{0 2}
+    }
+  cursor_position 38
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.4*input.height/1080}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{28.5 134.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  color {{upper_left.color} {upper_left.color} {upper_left.color} {upper_left.color}}
+  name lower_left
+  xpos 553
+  ypos 707
+  disable {{useLogo==3}}
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[metadata input/timecode]"
+  old_expression_markers {{0 -1}
+    }
+  box {{input.width*0.3} {input.height*0.03} {input.width*0.7} {input.height*0.4}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  cursor_position 25
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.4*input.height/1080}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{729 134.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  color {{upper_left.color} {upper_left.color} {upper_left.color} {upper_left.color}}
+  name lower_middle
+  xpos 553
+  ypos 733
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[metadata source/reel_name]"
+  old_expression_markers {{0 -1}
+    }
+  box {{input.width*0.7} {input.height*0.03} {input.width*0.97} {input.height*0.4}}
+  xjustify right
+  yjustify bottom
+  transforms {{0 2}
+    }
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.4*input.height/1080}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1296 126.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  color {{upper_left.color} {upper_left.color} {upper_left.color} {upper_left.color}}
+  name lower_right
+  xpos 553
+  ypos 759
+  disable {{useLogo==4}}
+ }
+ Transform {
+  translate {0 {(Rectangle13.area.t/input.height+0.01)*input.height}}
+  center {{input.width/2} {input.height/2}}
+  name Transform3
+  xpos 553
+  ypos 799
+  disable {{!overlayBurnin}}
+ }
+ Merge2 {
+  inputs 2
+  name Merge6
+  xpos 468
+  ypos 871
+ }
+push $Nb768400
+ Merge2 {
+  inputs 2
+  mix {{burninOpacity}}
+  name Merge5
+  xpos 698
+  ypos 871
+ }
+ Merge2 {
+  inputs 2
+  mix {{burninOpacity}}
+  name Merge7
+  xpos 698
+  ypos 1446
+  disable {{useLogo==0}}
+ }
+ Dot {
+  name Dot8
+  xpos 732
+  ypos 1661
+ }
+ Dot {
+  name Dot1
+  xpos 34
+  ypos 1661
+ }
+set N515ec00 [stack 0]
+push $N5095800
+push $Nb712800
+ Transform {
+  translate {{Dot9.width*0.85+center.x*(Dot9.height/1080-1)} {Dot9.height*0.8+center.y*(Dot9.height/1080-1)}}
+  scale {{logoScale*Dot9.height/1080}}
+  center {{input.width/2} {input.height/2}}
+  name Transform2
+  xpos 46
+  ypos 918
+ }
+ Switch {
+  inputs 2
+  which {{logoType}}
+  name Switch4
+  xpos 46
+  ypos 995
+ }
+push $N5072800
+ Dot {
+  name Dot3
+  xpos -352
+  ypos 277
+ }
+set N515e000 [stack 0]
+ FrameHold {
+  first_frame {{thumbFrame}}
+  name Custom
+  xpos -228
+  ypos 336
+ }
+push $N515e000
+ FrameHold {
+  first_frame {{input.last_frame}}
+  name Last
+  xpos -327
+  ypos 337
+ }
+push $N515e000
+ FrameHold {
+  first_frame {{first+(input.last_frame-first)/2}}
+  name Middle
+  xpos -429
+  ypos 336
+ }
+push $N515e000
+ FrameHold {
+  first_frame {{first}}
+  name First
+  xpos -540
+  ypos 335
+ }
+ Switch {
+  inputs 4
+  which {{thumbMode}}
+  name ThumbSwitch
+  xpos -383
+  ypos 433
+ }
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos -383
+  ypos 464
+  disable true
+ }
+ Transform {
+  translate {{input.width/4} {input.height/10}}
+  scale 0.3
+  center {{input.width/2} {input.height/2}}
+  name Transform14
+  xpos -383
+  ypos 503
+ }
+set N51a3400 [stack 0]
+ Invert {
+  channels alpha
+  clamp true
+  name Invert1
+  xpos -545
+  ypos 497
+  disable true
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  format {{{Reformat1.format}}}
+  name Constant1
+  xpos -655
+  ypos 261
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos -655
+  ypos 503
+  disable true
+ }
+ Dot {
+  name Dot4
+  xpos -621
+  ypos 585
+ }
+set N51a2400 [stack 0]
+ Remove {
+  name Remove1
+  xpos -868
+  ypos 575
+  disable true
+ }
+ Dot {
+  name Dot6
+  xpos -1024
+  ypos 585
+ }
+ Rectangle {
+  area {0 0 {input.width*0.1} {input.height/10}}
+  color {1 0 0 1}
+  name Rectangle1
+  xpos -1058
+  ypos 630
+ }
+ Rectangle {
+  area {{input.width*0.1} 0 {input.width*0.2} {input.height/10}}
+  color {0 1 0 1}
+  name Rectangle2
+  xpos -1058
+  ypos 656
+ }
+ Rectangle {
+  area {{input.width*0.2} 0 {input.width*0.3} {input.height/10}}
+  color {0 0 1 1}
+  name Rectangle3
+  xpos -1058
+  ypos 682
+ }
+ Rectangle {
+  area {{input.width*0.3} 0 {input.width*0.4} {input.height/10}}
+  color {1 1 0 1}
+  name Rectangle4
+  xpos -1058
+  ypos 708
+ }
+ Rectangle {
+  area {{input.width*0.4} 0 {input.width*0.5} {input.height/10}}
+  color {1 0 1 1}
+  name Rectangle5
+  xpos -1058
+  ypos 734
+ }
+ Rectangle {
+  area {{input.width*0.5} 0 {input.width*0.6} {input.height/10}}
+  color {0 1 1 1}
+  name Rectangle6
+  xpos -1058
+  ypos 760
+ }
+ Rectangle {
+  area {{input.width*0.6} 0 {input.width*0.7} {input.height/10}}
+  color {0 0 0 1}
+  name Rectangle7
+  xpos -1058
+  ypos 786
+ }
+ Rectangle {
+  area {{input.width*0.7} 0 {input.width*0.8} {input.height/10}}
+  name Rectangle8
+  xpos -1058
+  ypos 812
+ }
+ Rectangle {
+  area {{input.width*0.8} 0 {input.width*0.9} {input.height/10}}
+  color {0.18 0.18 0.18 1}
+  name Rectangle9
+  xpos -1058
+  ypos 838
+ }
+ Rectangle {
+  area {{input.width*0.9} 0 {input.width} {input.height/10}}
+  color 0.5
+  name Rectangle10
+  xpos -1058
+  ypos 864
+ }
+ Rectangle {
+  area {0 {input.height/10} {input.width} {input.height*0.15}}
+  ramp smooth0
+  p1 {{input.width} {input.height/10}}
+  p0 {0 {input.height/10}}
+  name Rectangle11
+  xpos -1058
+  ypos 890
+ }
+ Dot {
+  name Dot5
+  xpos -1024
+  ypos 947
+ }
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos -872
+  ypos 943
+ }
+ Crop {
+  box {0 0 {input.width} {input.height*0.16}}
+  name Crop1
+  xpos -872
+  ypos 969
+ }
+push $N51a3400
+ Dot {
+  name Dot16
+  xpos -349
+  ypos 640
+ }
+push $N51a2400
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -655
+  ypos 636
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value showName]"
+  old_message {{84 68 67}
+    }
+  old_expression_markers {{0 2}
+    }
+  box {{input.width*0.02} {input.height*0.85} {input.width*0.3} {input.height*0.94}}
+  transforms {{0 2}
+    }
+  cursor_position 15
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{input.height/1080}}
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{39.5 1008.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name SlateShow
+  xpos -655
+  ypos 688
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value versionName]"
+  old_message {{116 100 99 95 115 99 48 48 49 95 115 104 48 48 49 48 95 99 109 112 95 109 97 115 116 101 114 95 118 48 48 49}
+    }
+  old_expression_markers {{0 31}
+    }
+  box {{input.width*0.1} {input.height*0.2} {input.width*0.9} {input.height*0.3}}
+  xjustify center
+  yjustify center
+  transforms {{0 2}
+    }
+  cursor_position 19
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.6*input.height/1080}}
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{428.5 314.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name version_name
+  xpos -655
+  ypos 714
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  output rgb
+  message "date\nfps\nduration\ncolorspace\nartist\ncomment"
+  old_message {{100 97 116 101 10 102 112 115 10 100 117 114 97 116 105 111 110 10 99 111 108 111 114 115 112 97 99 101 10 97 114 116 105 115 116 10 99 111 109 109 101 110 116}
+    }
+  box {{input.width*0.02} {input.height*0.3} {input.width*0.2} {input.height*0.76}}
+  xjustify right
+  transforms {{0 2}
+    }
+  kern_values {{35 0}
+    }
+  cursor_position 43
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.4*input.height/1080}}
+  leading 0.4
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{60 812.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name Label
+  xpos -655
+  ypos 740
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  output rgb
+  message "\[python \{strftime('%Y/%m/%d')\}]\n\[value root.fps]\n\[value Input1.first_frame]-\[value Input1.last_frame]\nsRGB\n\[python \{getuser()\}]\n"
+  old_message {{91 112 121 116 104 111 110 32 123 115 116 114 102 116 105 109 101 40 39 37 89 47 37 109 47 37 100 39 41 125 93 10 50 52 10 49 48 48 49 45 49 52 52 57 10 115 82 71 66 10 91 112 121 116 104 111 110 32 123 103 101 116 117 115 101 114 40 41 125 93 10}
+    }
+  old_expression_markers {{32 33 35 38 40 43}
+    }
+  box {{input.width*0.22} {input.height*0.3} {input.width*0.6} {input.height*0.76}}
+  transforms {{0 2}
+    }
+  cursor_position 128
+  font {{ Microsoft YaHei : Regular : msyh.ttc : 0 }}
+  global_font_scale {{0.4*input.height/1080}}
+  leading 0.4
+  center {1024 778}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{357.5 808.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+    }
+  name Content
+  xpos -655
+  ypos 766
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -655
+  ypos 969
+ }
+ Merge2 {
+  inputs 2
+  mix {{logoOpacity}}
+  name Merge4
+  xpos -655
+  ypos 995
+ }
+ Switch {
+  inputs 2
+  which {{frame>=first}}
+  name Switch1
+  xpos -655
+  ypos 1657
+ }
+ FrameRange {
+  first_frame {{first-1}}
+  last_frame {{input.last_frame}}
+  time ""
+  name FrameRange2
+  xpos -655
+  ypos 1699
+ }
+push $N515ec00
+ Switch {
+  inputs 2
+  which {{addSlate}}
+  name Switch2
+  xpos 0
+  ypos 1699
+ }
+ Crop {
+  box {0 0 {input.width} {input.height}}
+  reformat true
+  crop false
+  name Crop2
+  selected true
+  xpos 0
+  ypos 1773
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 1842
+ }
+end_group
