@@ -1,0 +1,35 @@
+parsing:
+  parsers:
+    - path_regex_parser
+    - frame_range_parser
+    - frame_handle_parser
+    - version_parser
+    - dest_path_parser
+
+  path_regex_parser:
+    path_regex:
+    basename_regex: '(?P<show>[a-zA-Z0-9]+)_(?P<sequence>\d{3})_(?P<shot>\d{4})_(?P<step>[a-z0-9]+)_(?P<version>v\d{3})\.(?P<first>\d+)-(?P<last>\d+).\w+'
+
+  frame_handle_parser:
+    head_handle: 0
+    tail_handle: 0
+
+  frame_range_parser:
+    dest_first: 1001
+
+validation:
+  drag_in:
+    validators:
+    extensions:
+      - jpg
+      - exr
+
+  source:
+    validators:
+      - source_info_validator
+
+  frame_range_validator:
+
+transcoding:
+  template:
+    path: 'W:/develop/tdclass/templates'

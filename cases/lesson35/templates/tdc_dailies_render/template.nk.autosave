@@ -1,0 +1,107 @@
+#! C:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+#write_info render file:"" format:"1280 720 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"sRGB" datatype:"unknown" transfer:"unknown" views:"main" colorManagement:"OCIO"
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-8" y="-8" w="1920" h="1017" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="814" stretch="1"/>
+            <splitter orientation="2">
+                <split size="526"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="436"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="1058"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name W:/develop/tdclass/templates/tdc_dailies_render/template.nk
+ frame 23
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+ onScriptLoad "assembler = NukeAssembler()"
+}
+Read {
+ inputs 0
+ origset true
+ name source
+ xpos -42
+ ypos -146
+}
+Slate {
+ name slate
+ xpos -42
+ ypos -46
+ first {{"\[python assembler.get('dest_first')\\ or\\ 1001]"}}
+ headHandle {{"\[python assembler.get('head')\\ or\\ 0]"}}
+ tailHandle {{"\[python assembler.get('tail')\\ or\\ 0]"}}
+ format "1280 720 0 0 1280 720 1 HD_720"
+ showName ""
+ autoShow false
+ versionName ""
+ autoVersion false
+ message_6 "date\nfps\nduration\ncolorspace\nartist\ncomment"
+ message_7 "\[python \{strftime('%Y/%m/%d')\}]\n\[value root.fps]\n\[value Input1.first_frame]-\[value Input1.last_frame]\nsRGB\n\[python \{getuser()\}]\n\[python assembler.get('comment')]\n"
+ logoFile W:/develop/tdclass/logo.png
+ logoText "TD School"
+ burninContents 1
+ message "\[python assembler.get('show').upper()]"
+ message_1 "\[python \{getuser()\}]"
+ message_2 "\[python \{strftime('%Y/%m/%d')\}]"
+ message_3 "\[value frame]/\[value input.last_frame]"
+ message_4 "\[python assembler.get('comment')]"
+ message_5 ""
+}
+Write {
+ colorspace sRGB
+ file_type mov
+ meta_codec apcs
+ mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
+ mov64_codec apcs
+ mov64_bitrate 20000
+ mov64_bitrate_tolerance 40000000
+ mov64_quality_min 2
+ mov64_quality_max 31
+ mov64_gop_size 12
+ mov64_b_frames 0
+ create_directories true
+ checkHashOnRead false
+ name render
+ selected true
+ xpos -43
+ ypos 18
+}
+Viewer {
+ frame_range 1-1
+ viewerProcess "None (default)"
+ name Viewer1
+ xpos -43
+ ypos 116
+}

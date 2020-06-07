@@ -1,0 +1,27 @@
+parsing:
+  parsers:
+    - path_regex_parser
+    - custom_parser
+    - frame_handle_parser
+    - frame_range_parser
+    - version_parser
+    - dest_path_parser
+
+  custom_loading_path: 'W:/develop/tdclass/custom/parser'
+
+  version_parser:
+    custom_version: v007
+
+validation:
+  source:
+    validators:
+      - source_info_validator
+      - frame_range_validator
+
+  frame_range_validator:
+    allow_missing_frames: True
+
+transcoding:
+  dest_pattern: 'W:/develop/tdclass/{show}/publish/{sequence}/{shot}/plt/{show}_{sequence}_{shot}_{step}_{version}.mov'
+  template:
+    name: tdc_dailies_render

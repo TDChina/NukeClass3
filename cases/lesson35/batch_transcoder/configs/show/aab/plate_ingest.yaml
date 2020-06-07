@@ -1,0 +1,17 @@
+parsing:
+  frame_handle_parser:
+    head_handle: 10
+    tail_handle: 10
+
+  frame_range_parser:
+    dest_first: 991
+
+validation:
+  drag_in:
+    extensions:
+      - mov
+
+transcoding:
+  dest_pattern: 'W:/develop/tdclass/{show}/publish/{sequence}/{shot}/plt/{show}_{sequence}_{shot}_plt_{layer}_{version}.####.exr'
+  template:
+    name: aab_plate_ingest

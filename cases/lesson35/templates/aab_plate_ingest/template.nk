@@ -1,0 +1,77 @@
+#! C:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+#write_info render file:"" format:"2048 1556 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"linear" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"OCIO"
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="1912" y="-8" w="1920" h="1017" maximized="1" screen="1">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="982" stretch="1"/>
+            <splitter orientation="2">
+                <split size="565"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="397"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="890"/>
+            <dock id="" activePageId="uk.co.thefoundry.scripteditor.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                <page id="uk.co.thefoundry.scripteditor.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name W:/develop/tdclass/templates/aab_plate_ingest/template.nk
+ frame 23
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+ onScriptLoad "assembler = NukeAssembler()"
+}
+Read {
+ inputs 0
+ origset true
+ name source
+ xpos -43
+ ypos -155
+}
+Write {
+ colorspace linear
+ file_type exr
+ write_ACES_compliant_EXR true
+ metadata "all metadata"
+ first_part none
+ create_directories true
+ checkHashOnRead false
+ name render
+ xpos -43
+ ypos 18
+}
+Viewer {
+ frame_range 1-1
+ viewerProcess "None (default)"
+ name Viewer1
+ xpos -43
+ ypos 116
+}
